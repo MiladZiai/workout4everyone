@@ -1,51 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:orientation="vertical">
 
-    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <!-- view all button -->
+            <Button
+                android:id="@+id/view_all_workouts"
+                android:layout_width="200sp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_homeButtonsMargin"
+                android:gravity="center"
+                android:text="@string/view_all_workouts"
+                android:onClick="viewAllWorkoutsButtonClicked"/>
+
+            <!-- create workout button -->
+            <Button
+                android:id="@+id/create_workout"
+                android:layout_width="200sp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_homeButtonsMargin"
+                android:gravity="center"
+                android:text="@string/create_workout"
+                android:onClick="createWorkoutButtonClicked"/>
 
 
-    <Button
-        android:id="@+id/view_all_workouts"
-        android:layout_width="200sp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_homeButtonsMargin"
-        android:layout_centerInParent="true"
-        android:layout_above="@+id/create_workout"
-        android:layout_weight="0"
-        android:text="@string/view_all_workouts" />
+            <!-- favorite workout button -->
+            <Button
+                android:id="@+id/favorite_workouts"
+                android:layout_width="200sp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_homeButtonsMargin"
+                android:gravity="center"
+                android:text="@string/view_favorite_workouts"
+                android:onClick="viewFavoriteWorkoutsButtonClicked"/>
+        </LinearLayout>
+    </ScrollView>
 
-    <Button
-        android:id="@+id/create_workout"
-        android:layout_width="200sp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_homeButtonsMargin"
-        android:layout_centerInParent="true"
-        android:layout_above="@+id/favorite_workouts"
-        android:layout_weight="0"
-        android:text="@string/create_workout" />
 
-    <Button
-        android:id="@+id/favorite_workouts"
-        android:layout_width="200sp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_homeButtonsMargin"
-
-        android:layout_centerInParent="true"
-        android:layout_weight="0"
-        android:text="@string/view_favorite_workouts" />
-
+    <!-- bottom navbar  -->
     <android.support.design.widget.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
         app:menu="@menu/bottom_navbar"
-        android:background="?android:attr/windowBackground">
+        >
     </android.support.design.widget.BottomNavigationView>
 
-</RelativeLayout>
-
+</LinearLayout>
