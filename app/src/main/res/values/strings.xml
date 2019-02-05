@@ -9,5 +9,6 @@
     <string name="Exercise">Exercise</string>
     <string name="Description">Description</string>
     <string name="addExercise">Add Exercise</string>
-    <string name="Save">Save</string>
+    <string name="viewEx">View Exercise</string>
+    <string name="save">Save</string>
 </resources>

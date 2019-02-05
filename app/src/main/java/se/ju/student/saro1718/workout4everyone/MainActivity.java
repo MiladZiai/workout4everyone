@@ -22,8 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
     //create workout button clicked
     public void createWorkoutButtonClicked(View view){
-
-        System.out.println("create clicked");
         Intent intent = new Intent(this, createWorkoutActivity.class);
         startActivity(intent);
 
@@ -32,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
     //view favorite workouts button clicked
     public void viewFavoriteWorkoutsButtonClicked(View view){
-        System.out.println("favorite clicked");
     }
 
 }
