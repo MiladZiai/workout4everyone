@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     //view all workouts button clicked
     public void viewAllWorkoutsButtonClicked(View view){
         System.out.println("view all clicked");
-        Intent intent = new Intent(this, viewAllWorkoutsActivity.class);
+        Intent intent = new Intent(MainActivity.this,viewWorkoutsListActivity.class);
         startActivity(intent);
     }
 
