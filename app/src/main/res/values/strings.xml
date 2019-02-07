@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">workout4everyone</string>
-    <string name="view_all_workouts">View all workouts</string>
+    <string name="view_all_workouts">view all workouts</string>
     <string name="create_workout">create workout</string>
     <string name="view_favorite_workouts">View favorite</string>
     <string name="Home">Home</string>
     <string name="Profile">Profile</string>
+    <string name="Title">Title</string>
+    <string name="Exercise">Exercise</string>
+    <string name="Description">Description</string>
+    <string name="addExercise">Add Exercise</string>
+    <string name="viewEx">View Exercise</string>
+    <string name="save">Save</string>
 </resources>

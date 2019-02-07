@@ -17,9 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER"></category>
             </intent-filter>
         </activity>
-
-        <activity android:name=".viewWorkoutsListActivity"></activity>
-
+        <activity android:name=".viewAllWorkoutsActivity"></activity>
+        <activity android:name=".createWorkoutActivity"></activity>
+        <activity android:name=".viewExerciseListActivity"></activity>
+        <activity android:name=".exercisePopUp"
+            android:theme="@style/AppTheme.CustomTheme"
+            ></activity>
     </application>
 
 </manifest>

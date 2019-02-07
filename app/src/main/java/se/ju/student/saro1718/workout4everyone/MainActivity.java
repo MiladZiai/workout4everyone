@@ -62,19 +62,20 @@ public class MainActivity extends AppCompatActivity{
 
     //view all workouts button clicked
     public void viewAllWorkoutsButtonClicked(View view){
-        System.out.println("view all clicked");
-        Intent intent = new Intent(this ,viewWorkoutsListActivity.class);
+        Intent intent = new Intent(this, viewAllWorkoutsActivity.class);
         startActivity(intent);
     }
 
     //create workout button clicked
     public void createWorkoutButtonClicked(View view){
-        System.out.println("create clicked");
+        Intent intent = new Intent(this, createWorkoutActivity.class);
+        startActivity(intent);
+
+
     }
 
     //view favorite workouts button clicked
     public void viewFavoriteWorkoutsButtonClicked(View view){
-        System.out.println("favorite clicked");
     }
 
 }
