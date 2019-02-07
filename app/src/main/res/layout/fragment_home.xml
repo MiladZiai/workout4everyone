@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context = ".homeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <!-- view all button -->
+                <Button
+                    android:id="@+id/view_all_workouts"
+                    android:layout_width="200sp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/fab_homeButtonsMargin"
+                    android:gravity="center"
+                    android:text="@string/view_all_workouts"
+                    android:onClick="viewAllWorkoutsButtonClicked"/>
+
+                <!-- create workout button -->
+                <Button
+                    android:id="@+id/create_workout"
+                    android:layout_width="200sp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/fab_homeButtonsMargin"
+                    android:gravity="center"
+                    android:text="@string/create_workout"
+                    android:onClick="createWorkoutButtonClicked"/>
+
+
+                <!-- favorite workout button -->
+                <Button
+                    android:id="@+id/favorite_workouts"
+                    android:layout_width="200sp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/fab_homeButtonsMargin"
+                    android:gravity="center"
+                    android:text="@string/view_favorite_workouts"
+                    android:onClick="viewFavoriteWorkoutsButtonClicked"/>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+
+
+</FrameLayout>
