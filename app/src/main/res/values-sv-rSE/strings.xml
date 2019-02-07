@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">workout4everyone</string>
+    <string name="view_all_workouts">visa alla träningspass</string>
+    <string name="create_workout">skapa träningspass</string>
+    <string name="view_favorite_workouts">visa favoriter</string>
+    <string name="Home">Hem</string>
+    <string name="Profile">Profil</string>
+</resources>
