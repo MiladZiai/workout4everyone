@@ -3,9 +3,21 @@ package se.ju.student.saro1718.workout4everyone;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.media.Image;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class workoutsData{
     public static ArrayList<workoutVariables> workoutList = new ArrayList<>();
@@ -30,19 +42,30 @@ public class workoutsData{
         private String workoutLevel;
         private Bitmap workoutImage;
 
-        //returns image of workout
-        public Bitmap workoutImage(){
-            return this.workoutImage;
-        }
 
         //returns title of workout
-        public String workoutTitle(){
+        public String getWorkoutTitle(){
             return this.workoutTitle;
         }
 
         //returns level of workout
-        public String workoutLevel(){
+        public String getWorkoutLevel(){
             return this.workoutLevel;
+        }
+
+        //returns titles of workout exercises
+        public String[] getWorkoutExerciseTitle(){
+            return this.workoutExerciseTitle;
+        }
+
+        //return descriptions of workout exercises
+        public String[] getWorkoutExerciseDescription(){
+            return  this.workoutExerciseDescription;
+        }
+
+        //returns image of workout
+        public Bitmap getWorkoutImage(){
+            return this.workoutImage;
         }
 
         workoutVariables(int id , String title, String[] workoutExerciseTitle , String[] workoutExerciseDescription,String workoutLevel/*,Bitmap workoutImage*/){

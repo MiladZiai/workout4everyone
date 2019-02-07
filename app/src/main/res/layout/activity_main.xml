@@ -1,61 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    tools:context=".MainActivity">
 
-    <ScrollView
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <!-- view all button -->
-            <Button
-                android:id="@+id/view_all_workouts"
-                android:layout_width="200sp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_homeButtonsMargin"
-                android:gravity="center"
-                android:text="@string/view_all_workouts"
-                android:onClick="viewAllWorkoutsButtonClicked"/>
-
-            <!-- create workout button -->
-            <Button
-                android:id="@+id/create_workout"
-                android:layout_width="200sp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_homeButtonsMargin"
-                android:gravity="center"
-                android:text="@string/create_workout"
-                android:onClick="createWorkoutButtonClicked"/>
-
-
-            <!-- favorite workout button -->
-            <Button
-                android:id="@+id/favorite_workouts"
-                android:layout_width="200sp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_homeButtonsMargin"
-                android:gravity="center"
-                android:text="@string/view_favorite_workouts"
-                android:onClick="viewFavoriteWorkoutsButtonClicked"/>
-        </LinearLayout>
-    </ScrollView>
-
+        android:id="@+id/fragmentContainer"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavbar"/>
 
     <!-- bottom navbar  -->
     <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottomNavbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/bottom_navbar"
-        >
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navbar">
     </android.support.design.widget.BottomNavigationView>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
