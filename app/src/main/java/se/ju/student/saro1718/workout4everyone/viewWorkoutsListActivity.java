@@ -41,7 +41,7 @@ public class viewWorkoutsListActivity extends AppCompatActivity {
                 }
 
                 workoutsData.workoutVariables currentWorkout = getItem(position);
-                ((ViewHolder)view.getTag()).imageOfListCell.setImageBitmap(currentWorkout.getWorkoutImage());
+                //((ViewHolder)view.getTag()).imageOfListCell.setImageBitmap(currentWorkout.getWorkoutImage());
                 ((ViewHolder)view.getTag()).titleOfListCell.setText(currentWorkout.getWorkoutTitle());
                 ((ViewHolder)view.getTag()).levelOfListCell.setText(currentWorkout.getWorkoutLevel());
 
