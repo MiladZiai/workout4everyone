@@ -11,4 +11,7 @@
     <string name="addExercise">Add Exercise</string>
     <string name="viewEx">View Exercise</string>
     <string name="save">Save</string>
+    <string name="workoutImage">workoutImage</string>
+    <string name="signIn">sign in</string>
+    <string name="createAcc">create account</string>
 </resources>

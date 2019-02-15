@@ -14,4 +14,14 @@
         android:textSize="20sp"
         android:layout_margin="@dimen/fab_homeButtonsMargin"
         android:textColor="@color/colorAccent"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="222dp"
+        android:layout_height="61dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dp"
+        android:text="remove ecercise"
+        android:onClick="removeButtonClicked"/>
 </RelativeLayout>

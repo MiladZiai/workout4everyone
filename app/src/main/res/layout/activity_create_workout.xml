@@ -18,8 +18,11 @@
             android:layout_width="300sp"
             android:layout_height="200sp"
             android:layout_gravity="center"
-            android:contentDescription="TODO"
-            android:scaleType="fitCenter" />
+            android:adjustViewBounds="false"
+            android:contentDescription="@string/workoutImage"
+            android:cropToPadding="false"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/grey_color" />
 
         <LinearLayout
             android:id="@+id/titleLinearLayout"
@@ -111,7 +114,7 @@
                 android:layout_margin="15sp"
                 android:layout_weight="1"
                 android:onClick="addButtonClicked"
-                android:text="@string/addExercise" />
+                android:text="@string/addExercise"/>
 
             <Button
                 android:id="@+id/goToExerciseActivity"

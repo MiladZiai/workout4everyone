@@ -55,6 +55,7 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
         app:menu="@menu/bottom_navbar"
+        android:layout_gravity="bottom"
         >
     </android.support.design.widget.BottomNavigationView>
 
