@@ -9,6 +9,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -77,6 +80,7 @@ public class MainActivity extends AppCompatActivity{
 
     //view favorite workouts button clicked
     public void viewFavoriteWorkoutsButtonClicked(View view){
+
     }
 
 }
