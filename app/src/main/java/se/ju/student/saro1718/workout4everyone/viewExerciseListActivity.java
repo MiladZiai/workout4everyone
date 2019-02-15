@@ -21,12 +21,13 @@ public class viewExerciseListActivity extends AppCompatActivity {
     }
 
     public void initList(){
-
+        System.out.println("4");
         ListView listView = (ListView) findViewById(R.id.exerciseListView);
-        listView.setAdapter(new ArrayAdapter<exerciseData.Exercise>(
+        System.out.println("5");
+        listView.setAdapter(new ArrayAdapter<workoutsData.Exercise>(
                 this,
                 android.R.layout.simple_list_item_1,
-                exerciseData.exercises
+                workoutsData.exercises
         ));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

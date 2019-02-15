@@ -3,14 +3,22 @@ package se.ju.student.saro1718.workout4everyone;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import java.util.ArrayList;
+
+//database from main
+import static se.ju.student.saro1718.workout4everyone.MainActivity.database;
 
 public class createWorkoutActivity extends AppCompatActivity {
 
@@ -54,9 +62,9 @@ public class createWorkoutActivity extends AppCompatActivity {
 
         EditText editText = (EditText) findViewById(R.id.exerciseInput);
         EditText editText1 = (EditText) findViewById(R.id.descInput);
-        String exerciseInput = editText.getText().toString();
-        String descInput = editText1.getText().toString();
-        if(exerciseInput.length() == 0 || descInput.length() == 0){
+        String exerciseTitleInput = editText.getText().toString();
+        String exerciseDescInput = editText1.getText().toString();
+        if(exerciseTitleInput.length() == 0 || exerciseDescInput.length() == 0){
             new AlertDialog.Builder(this).setTitle("Add Exercise").setMessage("Input both Exercise and Description!")
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
                         public void onClick(DialogInterface dialog, int whichButton){
@@ -64,19 +72,50 @@ public class createWorkoutActivity extends AppCompatActivity {
                         }
                     }).show();
         }else{
-            exerciseData.exercises.add(new exerciseData.Exercise(exerciseInput));
-            exerciseData.descriptions.add(new exerciseData.Desc(descInput));
+            workoutsData.exercises.add(new workoutsData.Exercise(exerciseTitleInput));
+            workoutsData.descriptions.add(new workoutsData.Desc(exerciseDescInput));
+
             editText.setText("");
             editText1.setText("");
         }
     }
 
-    public void viewListButtonClicked(View view){
+    public void viewCurrentListButtonClicked(View view){
         Intent intent = new Intent(this, viewExerciseListActivity.class);
         startActivity(intent);
     }
 
 
+    //last step in create workout, saves everything to database
+    public void saveButtonClicked(View view){
 
+        //values for workout
+        //String ownerId = database.getUser();
+        EditText titleInput = (EditText) findViewById(R.id.titleInput);
+        String title = titleInput.getText().toString();
+
+        ArrayList<String> exerciseTitles = new ArrayList<>();
+        ArrayList<String> exerciseDescriptions = new ArrayList<>();
+
+        for(int i = 0 ; i < workoutsData.exercises.size();i++){
+            exerciseTitles.add(workoutsData.exercises.get(i).toString());
+            exerciseDescriptions.add(workoutsData.descriptions.get(i).toString());
+        }
+
+        String level = "advanced";
+
+        workoutsData.workoutVariables workoutToBeCreated = new workoutsData.workoutVariables("test",title,exerciseTitles,exerciseDescriptions,level,"");
+
+        imageView.invalidate();
+        BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
+        Bitmap bitmap = drawable.getBitmap();
+
+        database.createWorkout(workoutToBeCreated,bitmap);
+
+    }
+    private void animateButton(){
+        Button button = (Button) findViewById(R.id.saveWorkoutButton);
+
+    }
 
 }

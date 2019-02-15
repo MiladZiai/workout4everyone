@@ -11,7 +11,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.common.primitives.Bytes;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,18 +47,26 @@ public class fireBaseApi {
 
 
     fireBaseApi(){
-        db = FirebaseFirestore.getInstance();
+        if(db == null) {
+            db = FirebaseFirestore.getInstance();
+            getInstances();
+        }
+    }
+
+    private void getInstances(){
         mAuth = FirebaseAuth.getInstance();
         storage = FirebaseStorage.getInstance();
-
     }
+
 
     ///////////////////////////////////////////////////////////////
     //                      firebase cloud                       //
     ///////////////////////////////////////////////////////////////
 
     //creates workout
-    public String createWorkout(workoutsData.workoutVariables workout){
+    public void createWorkout(workoutsData.workoutVariables workout,final Bitmap bitmap){
+
+        System.out.println("create workout initiated");
         Map<String, Object> workoutToBeMade = new HashMap<>();
         workoutToBeMade.put("ownerId",workout.getOwnerId());
         workoutToBeMade.put("title",workout.getWorkoutTitle());
@@ -67,22 +74,37 @@ public class fireBaseApi {
         workoutToBeMade.put("exerciseDescription",workout.getWorkoutExerciseDescription());
         workoutToBeMade.put("workoutLevel",workout.getWorkoutLevel());
 
-        final String[] documentId = new String[1];
-
         db.collection("workoutsTable").add(workoutToBeMade).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                documentId[0] = documentReference.getId();
+                System.out.println("success creating workout");
+                insertImage(bitmap,documentReference.getId());
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.w(TAG,"error adding document" ,e);
-                documentId[0] = null;
+                System.out.println("error creating workout");
+                System.out.println(e);
             }
         });
-        return documentId[0];
+    }
+
+    //deletes workout due to documentId
+    public void deleteWorkout(String documentId){
+        db.collection("workoutsTable").document(documentId).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
     }
 
     //read all data from cloud
@@ -123,8 +145,8 @@ public class fireBaseApi {
     private void printDataToArray(QueryDocumentSnapshot document, boolean allOrNot){
         String ownerID = document.get("ownerId").toString();
         String title = document.get("title").toString();
-        ArrayList<String[]> exerciseTitles = (ArrayList<String[]>) document.get("exerciseTitles");
-        ArrayList<String[]> exerciseDescription = (ArrayList<String[]>) document.get("exerciseDescription");
+        ArrayList<String> exerciseTitles = (ArrayList<String>) document.get("exerciseTitles");
+        ArrayList<String> exerciseDescription = (ArrayList<String>) document.get("exerciseDescription");
         String workoutLevel = document.get("workoutLevel").toString();
         String workoutImage = document.getId();
 
@@ -135,15 +157,15 @@ public class fireBaseApi {
         }
     }
 
+
     ///////////////////////////////////////////////////////////////
     //                     firebase storage                      //
     ///////////////////////////////////////////////////////////////
 
-
     //inserts image to firebase storage
     public void insertImage(Bitmap image,String imageId){
-        //imageView.setDrawingCacheEnabled(true);
-        //imageView.buildDrawingCache();
+
+        System.out.println("insert image initiated");
 
         StorageReference storageRef = storage.getReference();
         StorageReference imageRef = storageRef.child("images/" + imageId);
@@ -157,12 +179,15 @@ public class fireBaseApi {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
+                System.out.println("error inserting image");
+
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
                 // ...
+                System.out.println("success inserting image");
             }
         });
     }
@@ -211,10 +236,11 @@ public class fireBaseApi {
     }
 
 
-
     ///////////////////////////////////////////////////////////////
     //                      firebase auth                        //
     ///////////////////////////////////////////////////////////////
+
+    //returns mauth for login check
     public FirebaseAuth getFirebaseAuth(){
         return mAuth;
     }
@@ -226,13 +252,22 @@ public class fireBaseApi {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            if(user != null){
-                                UserProfileChangeRequest setDisplayName = new UserProfileChangeRequest.Builder().setDisplayName(username).build();
-                                user.updateProfile(setDisplayName);
-                                addFollowingTable(user.getUid().toString());
-                            }
+                            FirebaseUser createdUser = mAuth.getCurrentUser();
+
+                            Map<String, String> user = new HashMap<>();
+                            user.put("displayName", username);
+                            user.put("id",createdUser.getUid());
+                            db.collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    //sucess
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    //failure
+                                }
+                            });
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -280,6 +315,9 @@ public class fireBaseApi {
                 });
     }
 
+    public String getUser() {
+        return mAuth.getCurrentUser().getUid();
+    }
 
     //returns user that is logged in
     public FirebaseUser getLoggedInUser(){

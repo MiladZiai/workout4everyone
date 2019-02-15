@@ -13,6 +13,7 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity{
 
     private BottomNavigationView bottomNavigationView;
+    public static fireBaseApi database = new fireBaseApi();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity{
 
     //view all workouts button clicked
     public void viewAllWorkoutsButtonClicked(View view){
-        Intent intent = new Intent(this, viewAllWorkoutsActivity.class);
+        Intent intent = new Intent(this, viewWorkoutsListActivity.class);
         startActivity(intent);
     }
 
