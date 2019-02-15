@@ -23,7 +23,7 @@ public class exercisePopUp extends AppCompatActivity {
         int position = 0;
         getIntent().getIntExtra("position",position);
         TextView textview = (TextView) findViewById(R.id.descTextView);
-        textview.setText(exerciseData.descriptions.get(getIntent().getIntExtra("position",position)).toString());
+        textview.setText(workoutsData.descriptions.get(getIntent().getIntExtra("position",position)).toString());
     }
 
 
