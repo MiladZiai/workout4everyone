@@ -11,9 +11,12 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
@@ -25,12 +28,20 @@ public class createWorkoutActivity extends AppCompatActivity {
     ImageView imageView;
     private static final int PICK_IMAGE = 100;
     Uri imageUri;
+    ProgressBar saveProgressBar;
+    Button button;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_workout);
+
+        //sets default values for animation
+        saveProgressBar = (ProgressBar) findViewById(R.id.saveProgressBar);
+        button = (Button) findViewById(R.id.saveWorkoutButton);
+        button.setVisibility(View.VISIBLE);
+        saveProgressBar.setVisibility(View.GONE);
 
         //image view on create
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -88,6 +99,8 @@ public class createWorkoutActivity extends AppCompatActivity {
 
     //last step in create workout, saves everything to database
     public void saveButtonClicked(View view){
+        animateButton();
+
 
         //values for workout
         //String ownerId = database.getUser();
@@ -110,11 +123,17 @@ public class createWorkoutActivity extends AppCompatActivity {
         BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
 
-        database.createWorkout(workoutToBeCreated,bitmap);
+        database.createWorkout(workoutToBeCreated,bitmap,saveProgressBar,this);
 
     }
     private void animateButton(){
-        Button button = (Button) findViewById(R.id.saveWorkoutButton);
+        final Animation fade = AnimationUtils.loadAnimation(this,R.anim.fade);
+        button.startAnimation(fade);
+        button.setVisibility(View.GONE);
+
+        ProgressBar saveProgressBar = (ProgressBar) findViewById(R.id.saveProgressBar);
+        saveProgressBar.setVisibility(View.VISIBLE);
+
 
     }
 
