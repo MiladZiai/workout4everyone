@@ -21,8 +21,12 @@
         <activity android:name=".createWorkoutActivity"></activity>
         <activity android:name=".viewExerciseListActivity"></activity>
         <activity android:name=".exercisePopUp"
-            android:theme="@style/AppTheme.CustomTheme"
-            ></activity>
+            android:theme="@style/AppTheme.CustomTheme">
+        </activity>
     </application>
+
+
+
+
 
 </manifest>

@@ -6,4 +6,13 @@
     <string name="view_favorite_workouts">visa favoriter</string>
     <string name="Home">Hem</string>
     <string name="Profile">Profil</string>
+    <string name="Title">Titel</string>
+    <string name="Exercise">Övning</string>
+    <string name="Description">Beskrivning</string>
+    <string name="addExercise">Lägg till övning</string>
+    <string name="viewEx">Visa övningar</string>
+    <string name="save">Spara</string>
+    <string name="Username">användarnamn</string>
+    <string name="Password">lösenord</string>
+    <string name="Login">Logga in</string>
 </resources>
