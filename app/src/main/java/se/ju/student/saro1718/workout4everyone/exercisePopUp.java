@@ -4,9 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.widget.TextView;
 
 public class exercisePopUp extends AppCompatActivity {
+
+    public int position = 0;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -21,9 +25,9 @@ public class exercisePopUp extends AppCompatActivity {
     //fetches the text from description input
     public void fetchDescText(){
         int position = 0;
-        getIntent().getIntExtra("position",position);
+        this.position = getIntent().getIntExtra("position",position);
         TextView textview = (TextView) findViewById(R.id.descTextView);
-        textview.setText(workoutsData.descriptions.get(getIntent().getIntExtra("position",position)).toString());
+        textview.setText(workoutsData.descriptions.get(position).toString());
     }
 
 
@@ -39,6 +43,12 @@ public class exercisePopUp extends AppCompatActivity {
         getWindow().setLayout((int) (width*.7), (int) (height*.6));
     }
 
+    //removes exercise from listView
+    public void removeButtonClicked(View view){
+        workoutsData.exercises.remove(this.position);
+        workoutsData.descriptions.remove(this.position);
+        finish();
+    }
 
 
 

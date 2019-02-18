@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="se.ju.student.saro1718.workout4everyone">
 
+    <uses-feature android:name="android.hardware.camera2" android:required="true"/>
+
+
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,12 +19,16 @@
                 <category android:name="android.intent.category.LAUNCHER"></category>
             </intent-filter>
         </activity>
-        <activity android:name=".viewWorkoutsListActivity"></activity>
-        <activity android:name=".createWorkoutActivity"></activity>
-        <activity android:name=".viewExerciseListActivity"></activity>
+        <activity android:name=".viewWorkoutsListActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".createWorkoutActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".viewExerciseListActivity"
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".exercisePopUp"
             android:theme="@style/AppTheme.CustomTheme"
             ></activity>
+        <activity android:name=".registerUserActivity"></activity>
     </application>
 
 </manifest>

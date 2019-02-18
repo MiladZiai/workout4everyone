@@ -34,14 +34,14 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     //multidex
-    implementation 'com.android.support:multidex:1.0.3'
+    compile 'com.android.support:multidex:1.0.3'
 
     //firebase
-    implementation 'com.google.firebase:firebase-core:16.0.7'
-    implementation 'com.google.firebase:firebase-firestore:18.0.1'
-    implementation 'com.google.firebase:firebase-auth:16.1.0'
-    implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
-    implementation 'com.google.firebase:firebase-storage:16.0.5'
+    compile 'com.google.firebase:firebase-core:16.0.7'
+    compile 'com.google.firebase:firebase-firestore:18.0.1'
+    compile 'com.google.firebase:firebase-auth:16.1.0'
+    compile 'com.firebaseui:firebase-ui-auth:4.1.0'
+    compile 'com.google.firebase:firebase-storage:16.0.5'
 
 }
 

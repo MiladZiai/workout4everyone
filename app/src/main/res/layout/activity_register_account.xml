@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <EditText
+            android:id="@+id/email_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100sp"
+            android:ems="15"
+            android:hint="Email:"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/username_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="170sp"
+            android:ems="15"
+            android:hint="Username:"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/password_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="240sp"
+            android:ems="15"
+            android:hint="Password:"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/password2_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="310sp"
+            android:ems="15"
+            android:hint="Repeat password:" />
+
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30sp"
+            android:layout_below="@+id/password2_input"
+            android:text="@string/register"
+            android:onClick="registerButtonClickedc"/>
+
+
+    </RelativeLayout>
+
+
+</ScrollView>
+
+
+

@@ -1,10 +1,12 @@
 package se.ju.student.saro1718.workout4everyone;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -246,7 +248,8 @@ public class fireBaseApi {
     }
 
     //register user
-    public void registerUser(final String username, String password, String email){
+    public void registerUser(final String username, String password, String email, final Context context){
+        System.out.println("register initated");
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -260,17 +263,20 @@ public class fireBaseApi {
                             db.collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
-                                    //sucess
+                                    System.out.println("sucess");
+                                    Toast.makeText(context.getApplicationContext(),"register success",Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
+                                    System.out.println("failure");
                                     //failure
                                 }
                             });
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            System.out.println("failure");
+                            Toast.makeText(context.getApplicationContext(),"register failed",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -18,7 +18,8 @@
             android:layout_width="300sp"
             android:layout_height="200sp"
             android:layout_gravity="center"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/workoutImage"
+            app:srcCompat="@drawable/grey_color"
             android:scaleType="fitCenter" />
 
         <LinearLayout
@@ -133,7 +134,7 @@
                 android:id="@+id/saveWorkoutButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_homeButtonsMargin"
+                android:layout_margin="15dp"
                 android:text="@string/save"
                 android:onClick="saveButtonClicked"/>
         </LinearLayout>
