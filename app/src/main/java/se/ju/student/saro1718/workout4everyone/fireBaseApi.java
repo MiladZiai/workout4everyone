@@ -1,12 +1,14 @@
 package se.ju.student.saro1718.workout4everyone;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -66,9 +68,8 @@ public class fireBaseApi {
     ///////////////////////////////////////////////////////////////
 
     //creates workout
-    public void createWorkout(workoutsData.workoutVariables workout,final Bitmap bitmap){
+    public void createWorkout(workoutsData.workoutVariables workout, final Bitmap bitmap, final ProgressBar progressBar, final Context context){
 
-        System.out.println("create workout initiated");
         Map<String, Object> workoutToBeMade = new HashMap<>();
         workoutToBeMade.put("ownerId",workout.getOwnerId());
         workoutToBeMade.put("title",workout.getWorkoutTitle());
@@ -79,15 +80,11 @@ public class fireBaseApi {
         db.collection("workoutsTable").add(workoutToBeMade).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                System.out.println("success creating workout");
-                insertImage(bitmap,documentReference.getId());
+                insertImage(bitmap,documentReference.getId(),progressBar,context);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.w(TAG,"error adding document" ,e);
-                System.out.println("error creating workout");
                 System.out.println(e);
             }
         });
@@ -165,15 +162,13 @@ public class fireBaseApi {
     ///////////////////////////////////////////////////////////////
 
     //inserts image to firebase storage
-    public void insertImage(Bitmap image,String imageId){
-
-        System.out.println("insert image initiated");
+    public void insertImage(Bitmap image, String imageId, final ProgressBar progressBar, final Context context){
 
         StorageReference storageRef = storage.getReference();
         StorageReference imageRef = storageRef.child("images/" + imageId);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        image.compress(Bitmap.CompressFormat.JPEG,10,baos);
         byte[] data = baos.toByteArray();
 
         UploadTask uploadTask = imageRef.putBytes(data);
@@ -181,15 +176,15 @@ public class fireBaseApi {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
-                System.out.println("error inserting image");
+                System.out.println(exception);
 
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                progressBar.setVisibility(View.GONE);
+                ((Activity)context).finish();
                 // ...
-                System.out.println("success inserting image");
             }
         });
     }

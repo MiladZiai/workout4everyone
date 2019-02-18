@@ -11,8 +11,12 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -23,12 +27,20 @@ public class createWorkoutActivity extends AppCompatActivity {
     private static final int PICK_IMAGE = 100;
     private static final int REQUEST_CAPTURE = 1;
     Uri imageUri;
+    ProgressBar saveProgressBar;
+    Button button;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_workout);
+
+        //sets default values for animation
+        saveProgressBar = (ProgressBar) findViewById(R.id.saveProgressBar);
+        button = (Button) findViewById(R.id.saveWorkoutButton);
+        button.setVisibility(View.VISIBLE);
+        saveProgressBar.setVisibility(View.GONE);
 
         //image view on create
         imageViewClickListener();
@@ -124,6 +136,44 @@ public class createWorkoutActivity extends AppCompatActivity {
     }
 
 
+    //last step in create workout, saves everything to database
+    public void saveButtonClicked(View view){
+        animateButton();
 
+
+        //values for workout
+        //String ownerId = database.getUser();
+        EditText titleInput = (EditText) findViewById(R.id.titleInput);
+        String title = titleInput.getText().toString();
+
+        ArrayList<String> exerciseTitles = new ArrayList<>();
+        ArrayList<String> exerciseDescriptions = new ArrayList<>();
+
+        for(int i = 0 ; i < workoutsData.exercises.size();i++){
+            exerciseTitles.add(workoutsData.exercises.get(i).toString());
+            exerciseDescriptions.add(workoutsData.descriptions.get(i).toString());
+        }
+
+        String level = "advanced";
+
+        workoutsData.workoutVariables workoutToBeCreated = new workoutsData.workoutVariables("test",title,exerciseTitles,exerciseDescriptions,level,"");
+
+        imageView.invalidate();
+        BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
+        Bitmap bitmap = drawable.getBitmap();
+
+        database.createWorkout(workoutToBeCreated,bitmap,saveProgressBar,this);
+
+    }
+    private void animateButton(){
+        final Animation fade = AnimationUtils.loadAnimation(this,R.anim.fade);
+        button.startAnimation(fade);
+        button.setVisibility(View.GONE);
+
+        ProgressBar saveProgressBar = (ProgressBar) findViewById(R.id.saveProgressBar);
+        saveProgressBar.setVisibility(View.VISIBLE);
+
+
+    }
 
 }
