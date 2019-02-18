@@ -11,7 +11,19 @@
     <string name="addExercise">Add Exercise</string>
     <string name="viewEx">View Exercise</string>
     <string name="save">Save</string>
-    <string name="workoutImage">workoutImage</string>
-    <string name="RemoveEx">remove exercise</string>
-    <string name="register">register</string>
+    <string name="Username">username</string>
+    <string name="Password">password</string>
+    <string name="Login">Login</string>
+
+    <!-- Login -->
+    <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
+    <string name="facebook_application_id" translatable="false">YOUR_APP_ID</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fbYOUR_APP_ID</string>
+    <!-- Twitter consumer key and secret -->
+    <string name="twitter_consumer_key" translatable="false">YOUR_CONSUMER_KEY</string>
+    <string name="twitter_consumer_secret" translatable="false">YOUR_CONSUMER_SECRET</string>
+    <string name="facebook_app_id" translatable="false">593299544466815</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb593299544466815</string>
 </resources>
+
+

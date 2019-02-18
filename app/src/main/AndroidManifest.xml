@@ -31,4 +31,8 @@
         <activity android:name=".registerUserActivity"></activity>
     </application>
 
+
+
+
+
 </manifest>
