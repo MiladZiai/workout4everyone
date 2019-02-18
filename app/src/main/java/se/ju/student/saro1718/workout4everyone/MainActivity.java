@@ -80,7 +80,8 @@ public class MainActivity extends AppCompatActivity{
 
     //view favorite workouts button clicked
     public void viewFavoriteWorkoutsButtonClicked(View view){
-
+        Intent intent = new Intent(this,registerUserActivity.class);
+        startActivity(intent);
     }
 
 }
