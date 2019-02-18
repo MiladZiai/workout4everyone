@@ -15,15 +15,18 @@ public class viewExerciseListActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_exercise);
+    }
 
-        //Intiating list
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //Intiating listV
         initList();
     }
 
     public void initList(){
-        System.out.println("4");
         ListView listView = (ListView) findViewById(R.id.exerciseListView);
-        System.out.println("5");
         listView.setAdapter(new ArrayAdapter<workoutsData.Exercise>(
                 this,
                 android.R.layout.simple_list_item_1,

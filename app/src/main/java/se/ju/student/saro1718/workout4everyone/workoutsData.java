@@ -1,5 +1,8 @@
 package se.ju.student.saro1718.workout4everyone;
 
+import android.graphics.Bitmap;
+import android.widget.ImageView;
+
 import java.util.ArrayList;
 
 public class workoutsData{
@@ -99,6 +102,7 @@ public class workoutsData{
     public static ArrayList<Exercise> exercises = new ArrayList<>();
     public static ArrayList<Desc> descriptions = new ArrayList<>();
 
+
     public static class Exercise{
         public String title;
 
@@ -122,6 +126,8 @@ public class workoutsData{
             return desc;
         }
     }
+
+
 
 
 }

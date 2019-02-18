@@ -34,7 +34,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     //multidex
-    implementation 'com.android.support:multidex:1.0.3'
+    compile 'com.android.support:multidex:1.0.3'
 
     //firebase
     implementation 'com.google.firebase:firebase-core:16.0.7'

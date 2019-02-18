@@ -4,9 +4,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,15 +18,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-
-//database from main
-import static se.ju.student.saro1718.workout4everyone.MainActivity.database;
 
 public class createWorkoutActivity extends AppCompatActivity {
 
     ImageView imageView;
     private static final int PICK_IMAGE = 100;
+    private static final int REQUEST_CAPTURE = 1;
     Uri imageUri;
     ProgressBar saveProgressBar;
     Button button;
@@ -44,15 +43,50 @@ public class createWorkoutActivity extends AppCompatActivity {
         saveProgressBar.setVisibility(View.GONE);
 
         //image view on create
+        imageViewClickListener();
+    }
+
+
+
+    public void imageViewClickListener(){
         imageView = (ImageView) findViewById(R.id.imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               openGallery();
+                showPictureDialog();
             }
         });
-
     }
+
+    private void showPictureDialog(){
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
+        pictureDialog.setTitle("Select Action");
+        String[] pictureDialogItems = {
+                "select photo from gallery",
+                "capture photo from camera"};
+        pictureDialog.setItems(pictureDialogItems, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case 0:
+                        openGallery();
+                        break;
+                    case 1:
+                        launchCamera();
+
+                        break;
+                }
+            }
+        });
+        pictureDialog.show();
+    }
+
+
+    public void launchCamera(){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_CAPTURE);
+    }
+
 
     private void openGallery(){
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
@@ -67,7 +101,13 @@ public class createWorkoutActivity extends AppCompatActivity {
             imageUri = data.getData();
             imageView.setImageURI(imageUri);
         }
+        if(resultCode == RESULT_OK && requestCode == REQUEST_CAPTURE){
+            Bundle extras = data.getExtras();
+            Bitmap photo = (Bitmap) extras.get("data");
+            imageView.setImageBitmap(photo);
+        }
     }
+
 
     public void addButtonClicked(View view){
 
@@ -85,7 +125,6 @@ public class createWorkoutActivity extends AppCompatActivity {
         }else{
             workoutsData.exercises.add(new workoutsData.Exercise(exerciseTitleInput));
             workoutsData.descriptions.add(new workoutsData.Desc(exerciseDescInput));
-
             editText.setText("");
             editText1.setText("");
         }
