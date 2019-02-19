@@ -1,6 +1,7 @@
 package se.ju.student.saro1718.workout4everyone;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -69,7 +71,7 @@ public class fireBaseApi {
 
     //creates workout
     public void createWorkout(workoutsData.workoutVariables workout, final Bitmap bitmap, final ProgressBar progressBar, final Context context){
-
+        System.out.println("create workout initited");
         Map<String, Object> workoutToBeMade = new HashMap<>();
         workoutToBeMade.put("ownerId",workout.getOwnerId());
         workoutToBeMade.put("title",workout.getWorkoutTitle());
@@ -243,13 +245,13 @@ public class fireBaseApi {
     }
 
     //register user
-    public void registerUser(final String username, String password, String email, final Context context){
-        System.out.println("register initated");
+    public void registerUser(final String username, String password, String email, final registerUserActivity registeruseractivity){
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
                             FirebaseUser createdUser = mAuth.getCurrentUser();
 
                             Map<String, String> user = new HashMap<>();
@@ -258,23 +260,23 @@ public class fireBaseApi {
                             db.collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
-                                    System.out.println("sucess");
-                                    Toast.makeText(context.getApplicationContext(),"register success",Toast.LENGTH_SHORT).show();
+                                    registeruseractivity.verifiyRegistration(true,null);
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    System.out.println("failure");
-                                    //failure
+                                    registeruseractivity.verifiyRegistration(false, e);
                                 }
                             });
                         } else {
-                            // If sign in fails, display a message to the user.
-                            System.out.println("failure");
-                            Toast.makeText(context.getApplicationContext(),"register failed",Toast.LENGTH_SHORT).show();
+                            //failure
+                            registeruseractivity.verifiyRegistration(false, task.getException());
                         }
+
+                        // ...
                     }
                 });
+
     }
     //   |  connected to this function, user to create connected table for followers
     //   |

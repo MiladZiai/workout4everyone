@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context=".MainActivity"
-    android:background="@drawable/bg">
+    tools:context=".MainActivity">
 
 
     <FrameLayout
@@ -23,7 +22,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navbar"
-        android:background="@color/navbarColor">
+        android:background="@drawable/grey_color">
     </android.support.design.widget.BottomNavigationView>
 
 </android.support.constraint.ConstraintLayout>

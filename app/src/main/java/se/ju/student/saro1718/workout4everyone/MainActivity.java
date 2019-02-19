@@ -16,13 +16,13 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity{
 
     private BottomNavigationView bottomNavigationView;
-    public static fireBaseApi database = new fireBaseApi();
+    public static fireBaseApi database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        database = new fireBaseApi();
 
         //bottom navigation bar
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavbar);

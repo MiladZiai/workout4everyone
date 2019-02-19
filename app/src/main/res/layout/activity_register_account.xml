@@ -47,7 +47,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="310sp"
             android:ems="15"
-            android:hint="Repeat password:" />
+            android:hint="Repeat password:"
+            android:inputType="textPassword"/>
 
         <Button
             android:id="@+id/registerButton"
@@ -56,7 +57,7 @@
             android:layout_margin="30sp"
             android:layout_below="@+id/password2_input"
             android:text="@string/register"
-            android:onClick="registerButtonClickedc"/>
+            android:onClick="registerButtonClicked"/>
 
 
     </RelativeLayout>
