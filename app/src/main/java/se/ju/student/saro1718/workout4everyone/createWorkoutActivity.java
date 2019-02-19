@@ -4,9 +4,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +18,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+
+import static se.ju.student.saro1718.workout4everyone.MainActivity.database;
 
 public class createWorkoutActivity extends AppCompatActivity {
 
@@ -156,13 +157,18 @@ public class createWorkoutActivity extends AppCompatActivity {
 
         String level = "advanced";
 
+
         workoutsData.workoutVariables workoutToBeCreated = new workoutsData.workoutVariables("test",title,exerciseTitles,exerciseDescriptions,level,"");
 
+
         imageView.invalidate();
+
         BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
+
         Bitmap bitmap = drawable.getBitmap();
 
         database.createWorkout(workoutToBeCreated,bitmap,saveProgressBar,this);
+
 
     }
     private void animateButton(){

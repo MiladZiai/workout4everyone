@@ -24,6 +24,9 @@
     <string name="twitter_consumer_secret" translatable="false">YOUR_CONSUMER_SECRET</string>
     <string name="facebook_app_id" translatable="false">593299544466815</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb593299544466815</string>
+    <string name="RemoveEx">remove exercise</string>
+    <string name="workoutImage">picture</string>
+    <string name="register">register</string>
 </resources>
 
 

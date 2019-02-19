@@ -36,7 +36,6 @@ public class registerUserActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_account);
 
-
         mAuth = database.getFirebaseAuth();
         progressDialog = new ProgressDialog(this);
         emailInput = (EditText) findViewById(R.id.email_input);
@@ -44,31 +43,41 @@ public class registerUserActivity extends AppCompatActivity{
         passwordInput = (EditText) findViewById(R.id.password_input);
         repeatPasswordInput = (EditText) findViewById(R.id.password2_input);
 
-
-
     }
 
-    public void registerButtonClickedc(View view){
-        System.out.println("1");
-        progressDialog.setMessage("Registering user...");
-        progressDialog.show();
+    public void registerButtonClicked(View view){
+
         String email = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim();
+        String password2 = repeatPasswordInput.getText().toString().trim();
         String username = usernameInput.getText().toString().trim();
 
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this, "Enter email please!", Toast.LENGTH_SHORT).show();
-            progressDialog.cancel();
+        } else if(TextUtils.isEmpty(username)){
+            Toast.makeText(this, "Enter a username please!", Toast.LENGTH_SHORT).show();
         } else if(TextUtils.isEmpty(password)){
-            Toast.makeText(this, "Enter password please!", Toast.LENGTH_SHORT).show();
-            progressDialog.cancel();
-        }else {
-            database.registerUser(username, password, email, this);
+            Toast.makeText(this, "Enter a password please!", Toast.LENGTH_SHORT).show();
+        } else if(TextUtils.isEmpty(password2)){
+            Toast.makeText(this, "Repeat password please!", Toast.LENGTH_SHORT).show();
+        } else if(!password.equals(password2)){
+            Toast.makeText(this, "Password must match!", Toast.LENGTH_SHORT).show();
+        } else {
+            progressDialog.setMessage("Registering user...");
+            progressDialog.show();
+            database.registerUser(username, password, email,this);
         }
     }
-    public void registerButtonClicked(){
 
 
+    public void verifiyRegistration(boolean state,Exception e){
+        if(state){
+            progressDialog.cancel();
+            Toast.makeText(this, "Success creating account", Toast.LENGTH_SHORT).show();
+            finish();
+        }else{
+            progressDialog.cancel();
+            Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
-
 }
