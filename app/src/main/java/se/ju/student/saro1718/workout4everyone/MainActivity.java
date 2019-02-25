@@ -10,14 +10,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity{
 
     private BottomNavigationView bottomNavigationView;
     public static fireBaseApi database;
+    private static Fragment _homeFragment;
+    private static Fragment _profileFragment;
     public static LocalDB localDatabase;
 
 
@@ -30,6 +29,11 @@ public class MainActivity extends AppCompatActivity{
         database = new fireBaseApi();
         localDatabase = new LocalDB(this,"localDatabase",null,1);
 
+        //set up fragments for onclick
+        _homeFragment = new homeFragment();
+        _profileFragment = new profileFragment();
+
+
         //bottom navigation bar
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavbar);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
@@ -39,24 +43,26 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
+    //switch fragment
     public void switchFragment(int id){
 
         Fragment fragment = null;
 
         switch(id){
             case R.id.nav_home:
-                fragment = new homeFragment();
+                fragment = _homeFragment;
                 break;
             case R.id.nav_profile:
-                fragment = new profileFragment();
+                fragment = _profileFragment;
                 break;
             default:
-                fragment = new homeFragment();
+                fragment = _homeFragment;
                 break;
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,fragment).commit();
     }
 
+    //bottom navigation view listener
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -66,28 +72,6 @@ public class MainActivity extends AppCompatActivity{
     };
 
 
-    //////////////////////////////////////////////
-    //                 buttons
-    //////////////////////////////////////////////
 
-    //view all workouts button clicked
-    public void viewAllWorkoutsButtonClicked(View view){
-        Intent intent = new Intent(this, viewWorkoutsListActivity.class);
-        startActivity(intent);
-    }
-
-    //create workout button clicked
-    public void createWorkoutButtonClicked(View view){
-        Intent intent = new Intent(this, createWorkoutActivity.class);
-        startActivity(intent);
-
-
-    }
-
-    //view favorite workouts button clicked
-    public void viewFavoriteWorkoutsButtonClicked(View view){
-        Intent intent = new Intent(this,registerUserActivity.class);
-        startActivity(intent);
-    }
 
 }

@@ -19,52 +19,68 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/Username" />
+            android:text="@string/email"
+            />
 
         <EditText
-            android:id="@+id/signInUsernameTextInput"
+            android:id="@+id/sign_in_activity_EmailInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="" />
+            android:text=""
+            />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/Password" />
+            android:text="@string/Password"
+            />
 
         <EditText
-            android:id="@+id/signInPasswordTextInput"
+            android:id="@+id/sign_in_activity_passwordInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/sign_in_activity_signInButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/Login" />
+            android:text="@string/SignIn"
+            />
+
+        <ProgressBar
+            android:id="@+id/sign_in_activity_signInProgressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/sign_in_activity_registerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:layout_gravity="center"
+            android:text="@string/register"
+            />
 
         <com.facebook.login.widget.LoginButton
-            android:id="@+id/facebook_login_button"
+            xmlns:fb="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/sign_in_activity_facebookLoginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp" />
+            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/fab_margin"
+            />
     </LinearLayout>
 </LinearLayout>

@@ -21,7 +21,7 @@
 
                 <!-- view all button -->
                 <Button
-                    android:id="@+id/view_all_workouts"
+                    android:id="@+id/home_activity_viewAllWorkoutsButton"
                     android:layout_width="200sp"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/fab_homeButtonsMargin"
@@ -34,11 +34,11 @@
                     android:shadowRadius="5"
                     android:gravity="center"
                     android:text="@string/view_all_workouts"
-                    android:onClick="viewAllWorkoutsButtonClicked"/>
+                    />
 
                 <!-- create workout button -->
                 <Button
-                    android:id="@+id/create_workout"
+                    android:id="@+id/home_activity_createWorkoutButton"
                     android:layout_width="200sp"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/fab_homeButtonsMargin"
@@ -51,12 +51,12 @@
                     android:shadowRadius="5"
                     android:gravity="center"
                     android:text="@string/create_workout"
-                    android:onClick="createWorkoutButtonClicked"/>
+                    />
 
 
                 <!-- favorite workout button -->
                 <Button
-                    android:id="@+id/favorite_workouts"
+                    android:id="@+id/home_activity_favoriteWorkoutsButton"
                     android:layout_width="200sp"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/fab_homeButtonsMargin"
@@ -69,7 +69,7 @@
                     android:shadowRadius="5"
                     android:gravity="center"
                     android:text="@string/view_favorite_workouts"
-                    android:onClick="viewFavoriteWorkoutsButtonClicked"/>
+                    />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

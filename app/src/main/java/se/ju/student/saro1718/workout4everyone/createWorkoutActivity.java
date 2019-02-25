@@ -29,6 +29,7 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
+
 import static se.ju.student.saro1718.workout4everyone.MainActivity.database;
 import static se.ju.student.saro1718.workout4everyone.MainActivity.localDatabase;
 
@@ -186,11 +187,7 @@ public class createWorkoutActivity extends AppCompatActivity {
 
         localDatabase.insertData(workoutToBeCreated.getWorkoutTitle(),data,exerciseTitles,exerciseDescriptions);
 
-        //database.createWorkout(workoutToBeCreated,bitmap,this);
-
-
     }
-
 
     public void verifyInsert(boolean success,Exception e){
         if(success){
