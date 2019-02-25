@@ -70,7 +70,7 @@ public class fireBaseApi {
     ///////////////////////////////////////////////////////////////
 
     //creates workout
-    public void createWorkout(workoutsData.workoutVariables workout, final Bitmap bitmap, final ProgressBar progressBar, final Context context){
+    public void createWorkout(workoutsData.workoutVariables workout, final Bitmap bitmap, final createWorkoutActivity createworkoutactivity){
         System.out.println("create workout initited");
         Map<String, Object> workoutToBeMade = new HashMap<>();
         workoutToBeMade.put("ownerId",workout.getOwnerId());
@@ -82,12 +82,12 @@ public class fireBaseApi {
         db.collection("workoutsTable").add(workoutToBeMade).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                insertImage(bitmap,documentReference.getId(),progressBar,context);
+                insertImage(bitmap,documentReference.getId(),createworkoutactivity);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                System.out.println(e);
+                createworkoutactivity.verifyInsert(false,e);
             }
         });
     }
@@ -164,7 +164,7 @@ public class fireBaseApi {
     ///////////////////////////////////////////////////////////////
 
     //inserts image to firebase storage
-    public void insertImage(Bitmap image, String imageId, final ProgressBar progressBar, final Context context){
+    public void insertImage(Bitmap image, String imageId, final createWorkoutActivity createworkoutactivity){
 
         StorageReference storageRef = storage.getReference();
         StorageReference imageRef = storageRef.child("images/" + imageId);
@@ -177,16 +177,12 @@ public class fireBaseApi {
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-                System.out.println(exception);
-
+                createworkoutactivity.verifyInsert(false,exception);
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                progressBar.setVisibility(View.GONE);
-                ((Activity)context).finish();
-                // ...
+                createworkoutactivity.verifyInsert(true,null);
             }
         });
     }
@@ -223,7 +219,7 @@ public class fireBaseApi {
         storageReference.child(path).getBytes(1024*1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
-                bitmap[0] = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                bitmap[0] = BitmapFactory.decodeByteArray(bytes,0, bytes.length);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

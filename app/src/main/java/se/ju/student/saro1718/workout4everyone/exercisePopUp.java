@@ -22,6 +22,7 @@ public class exercisePopUp extends AppCompatActivity {
         fetchDescText();
     }
 
+
     //fetches the text from description input
     public void fetchDescText(){
         this.position = getIntent().getIntExtra("position",position);
@@ -41,6 +42,7 @@ public class exercisePopUp extends AppCompatActivity {
 
         getWindow().setLayout((int) (width*.7), (int) (height*.6));
     }
+
 
     //removes exercise from listView
     public void removeButtonClicked(View view){

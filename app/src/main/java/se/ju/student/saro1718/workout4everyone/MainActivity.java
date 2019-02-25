@@ -2,6 +2,7 @@ package se.ju.student.saro1718.workout4everyone;
 
 import android.content.Intent;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -16,14 +17,17 @@ public class MainActivity extends AppCompatActivity{
     public static fireBaseApi database;
     private static Fragment _homeFragment;
     private static Fragment _profileFragment;
+    public static LocalDB localDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //setup database
+        //setup databases
         database = new fireBaseApi();
+        localDatabase = new LocalDB(this,"localDatabase",null,1);
 
         //set up fragments for onclick
         _homeFragment = new homeFragment();

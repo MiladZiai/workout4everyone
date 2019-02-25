@@ -4,21 +4,34 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+
+
+import static se.ju.student.saro1718.workout4everyone.MainActivity.database;
+import static se.ju.student.saro1718.workout4everyone.MainActivity.localDatabase;
 
 public class createWorkoutActivity extends AppCompatActivity {
 
@@ -27,8 +40,11 @@ public class createWorkoutActivity extends AppCompatActivity {
     private static final int REQUEST_CAPTURE = 1;
     Uri imageUri;
     ProgressBar saveProgressBar;
-    Button button;
+    Button saveWorkoutButton, btnList;
+    EditText edtTitle;
 
+
+    public static LocalDB localDB;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,9 +53,9 @@ public class createWorkoutActivity extends AppCompatActivity {
 
         //sets default values for animation
         saveProgressBar = (ProgressBar) findViewById(R.id.saveProgressBar);
-        button = (Button) findViewById(R.id.saveWorkoutButton);
-        button.setVisibility(View.VISIBLE);
+        saveWorkoutButton = (Button) findViewById(R.id.saveWorkoutButton);
         saveProgressBar.setVisibility(View.GONE);
+
 
         //image view on create
         imageViewClickListener();
@@ -137,6 +153,7 @@ public class createWorkoutActivity extends AppCompatActivity {
 
     //last step in create workout, saves everything to database
     public void saveButtonClicked(View view){
+
         animateButton();
 
 
@@ -156,7 +173,7 @@ public class createWorkoutActivity extends AppCompatActivity {
         String level = "advanced";
 
 
-        workoutsData.workoutVariables workoutToBeCreated = new workoutsData.workoutVariables("test",title,exerciseTitles,exerciseDescriptions,level,"");
+        workoutsData.workoutVariables workoutToBeCreated = new workoutsData.workoutVariables("test",title,exerciseTitles,exerciseDescriptions,level, "");
 
 
         imageView.invalidate();
@@ -164,21 +181,53 @@ public class createWorkoutActivity extends AppCompatActivity {
         BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
 
         Bitmap bitmap = drawable.getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,10,baos);
+        byte[] data = baos.toByteArray();
 
-        fireBaseApi database = new fireBaseApi();
-        database.createWorkout(workoutToBeCreated,bitmap,saveProgressBar,this);
-
+        localDatabase.insertData(workoutToBeCreated.getWorkoutTitle(),data,exerciseTitles,exerciseDescriptions);
 
     }
+
+    public void verifyInsert(boolean success,Exception e){
+        if(success){
+            //toast ok
+            Intent intent = new Intent(createWorkoutActivity.this,viewWorkoutsListActivity.class);
+            finish();
+            //intent putextra
+            startActivity(intent);
+        }else{
+            //toast not ok e.getMessage();
+            saveProgressBar.setVisibility(View.GONE);
+            saveWorkoutButton.setVisibility(View.VISIBLE);
+        }
+    }
+
+
     private void animateButton(){
         final Animation fade = AnimationUtils.loadAnimation(this,R.anim.fade);
-        button.startAnimation(fade);
-        button.setVisibility(View.GONE);
+        saveWorkoutButton.startAnimation(fade);
+        saveWorkoutButton.setVisibility(View.GONE);
 
         ProgressBar saveProgressBar = (ProgressBar) findViewById(R.id.saveProgressBar);
         saveProgressBar.setVisibility(View.VISIBLE);
 
 
     }
+
+
+
+    private byte[] imageViewToByte(ImageView image){
+        Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArr = stream.toByteArray();
+        return byteArr;
+
+    }
+
+
+
+
 
 }
