@@ -55,6 +55,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30sp"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:background="@drawable/btnshape"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
             android:layout_below="@+id/password2_input"
             android:text="@string/register"
             android:onClick="registerButtonClicked"/>

@@ -11,10 +11,13 @@ import android.widget.ListView;
 
 public class viewExerciseListActivity extends AppCompatActivity {
 
+    private LocalDB localDatabase;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_exercise);
+
     }
 
     @Override
