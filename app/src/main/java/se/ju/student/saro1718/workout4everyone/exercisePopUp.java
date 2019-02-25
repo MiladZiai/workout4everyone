@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class exercisePopUp extends AppCompatActivity {
 
-    public int position = 0;
+    private int position = 0;
 
 
     @Override
@@ -24,7 +24,6 @@ public class exercisePopUp extends AppCompatActivity {
 
     //fetches the text from description input
     public void fetchDescText(){
-        int position = 0;
         this.position = getIntent().getIntExtra("position",position);
         TextView textview = (TextView) findViewById(R.id.descTextView);
         textview.setText(workoutsData.descriptions.get(position).toString());

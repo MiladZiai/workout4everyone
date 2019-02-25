@@ -244,6 +244,12 @@ public class fireBaseApi {
         return mAuth;
     }
 
+    //returns id of user that is logged in
+    public String getUser() {
+        return mAuth.getCurrentUser().getUid();
+    }
+
+
     //register user
     public void registerUser(final String username, String password, String email, final registerUserActivity registeruseractivity){
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -301,26 +307,25 @@ public class fireBaseApi {
     }
 
     //login function
-    public void login(String email,String password){
+    public void login(String email,String password,final profileFragment fragment){
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            fragment.verifySignIn(true);
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            fragment.verifySignIn(false);
                         }
                     }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                fragment.verifySignIn(false);
+            }
+        });
     }
 
-    public String getUser() {
-        return mAuth.getCurrentUser().getUid();
-    }
 
     //returns user that is logged in
     public FirebaseUser getLoggedInUser(){

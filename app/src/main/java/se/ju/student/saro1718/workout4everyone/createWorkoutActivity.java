@@ -20,8 +20,6 @@ import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
-import static se.ju.student.saro1718.workout4everyone.MainActivity.database;
-
 public class createWorkoutActivity extends AppCompatActivity {
 
     ImageView imageView;
@@ -167,6 +165,7 @@ public class createWorkoutActivity extends AppCompatActivity {
 
         Bitmap bitmap = drawable.getBitmap();
 
+        fireBaseApi database = new fireBaseApi();
         database.createWorkout(workoutToBeCreated,bitmap,saveProgressBar,this);
 
 

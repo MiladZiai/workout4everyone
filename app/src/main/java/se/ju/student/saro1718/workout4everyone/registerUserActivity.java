@@ -70,8 +70,8 @@ public class registerUserActivity extends AppCompatActivity{
     }
 
 
-    public void verifiyRegistration(boolean state,Exception e){
-        if(state){
+    public void verifiyRegistration(boolean success,Exception e){
+        if(success){
             progressDialog.cancel();
             Toast.makeText(this, "Success creating account", Toast.LENGTH_SHORT).show();
             finish();

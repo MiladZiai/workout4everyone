@@ -17,5 +17,6 @@
     <string name="register">registrera</string>
     <string name="Username">användarnamn</string>
     <string name="Password">lösenord</string>
-    <string name="Login">Logga in</string>
+    <string name="SignIn">Logga in</string>
+    <string name="email">E-post adress</string>
 </resources>
