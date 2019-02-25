@@ -2,6 +2,7 @@ package se.ju.student.saro1718.workout4everyone;
 
 import android.content.Intent;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -17,12 +18,17 @@ public class MainActivity extends AppCompatActivity{
 
     private BottomNavigationView bottomNavigationView;
     public static fireBaseApi database;
+    public static LocalDB localDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //setup databases
         database = new fireBaseApi();
+        localDatabase = new LocalDB(this,"localDatabase",null,1);
 
         //bottom navigation bar
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavbar);

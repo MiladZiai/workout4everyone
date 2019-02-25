@@ -110,6 +110,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15sp"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:background="@drawable/btnshape"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
                 android:layout_weight="1"
                 android:onClick="addButtonClicked"
                 android:text="@string/addExercise" />
@@ -119,6 +126,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15sp"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:background="@drawable/btnshape"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
                 android:layout_weight="1"
                 android:onClick="viewCurrentListButtonClicked"
                 android:text="@string/viewEx" />
@@ -131,10 +145,24 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/List"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                android:onClick="listBtnClicked"/>
+
+            <Button
                 android:id="@+id/saveWorkoutButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:background="@drawable/btnshape"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
                 android:text="@string/save"
                 android:onClick="saveButtonClicked"/>
 

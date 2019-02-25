@@ -17,6 +17,7 @@ public class workoutsData{
         private ArrayList<String> workoutExerciseDescription;
         private String workoutLevel;
         private String workoutImage;
+        private Bitmap workoutBitmap;
 
         /////////       returns       /////////
 
@@ -42,6 +43,10 @@ public class workoutsData{
         //return descriptions of workout exercises
         public ArrayList<String> getWorkoutExerciseDescription(){
             return  this.workoutExerciseDescription;
+        }
+
+        public Bitmap getWorkoutBitmap(){
+            return this.workoutBitmap;
         }
 
         //returns image of workout
@@ -81,6 +86,9 @@ public class workoutsData{
             this.workoutImage = imageUrl;
         }
 
+        public void setWorkoutBitmap(Bitmap bitmap){
+            this.workoutBitmap = bitmap;
+        }
 
         workoutVariables(String id , String title, ArrayList<String> workoutExerciseTitle , ArrayList<String> workoutExerciseDescription, String workoutLevel, String workoutImage){
             this.ownerId = id;
