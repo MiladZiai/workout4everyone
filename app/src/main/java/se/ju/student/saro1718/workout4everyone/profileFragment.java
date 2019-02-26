@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -38,13 +40,18 @@ import static se.ju.student.saro1718.workout4everyone.MainActivity.database;
 
 public class profileFragment extends Fragment implements View.OnClickListener {
 
-    private LoginButton loginButton;
     private CallbackManager mCallbackManager;
 
     private FirebaseAuth mAuth = database.getFirebaseAuth();
 
+    //not logged in buttons
+    private LoginButton loginButton;
     private Button signInButton;
     private Button registerButton;
+
+    //logged in buttons
+    private Button signOutButton;
+
     private ProgressBar signInProgressBar;
     @Override
     public void onStart() {
@@ -70,6 +77,7 @@ public class profileFragment extends Fragment implements View.OnClickListener {
 
             loginButton = parentView.findViewById(R.id.sign_in_activity_facebookLoginButton);
             loginButton.setOnClickListener(this);
+
             return parentView;
         }
 
@@ -80,62 +88,62 @@ public class profileFragment extends Fragment implements View.OnClickListener {
      *  Facebook login methods!
      *
      ***********************************************************/
+     @Override
+     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+         super.onActivityResult(requestCode, resultCode, data);
 
-    public void faceBookButtonOnClick() {
-        System.out.println("fbclicked");
-        FacebookSdk.sdkInitialize(this.getContext());
+         // Pass the activity result back to the Facebook SDK
+         mCallbackManager.onActivityResult(requestCode, resultCode, data);
+     }
 
-        mCallbackManager = CallbackManager.Factory.create();
-        loginButton.setReadPermissions("email", "public_profile");
-        
-        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                System.out.println("sucess");
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
-            @Override
-            public void onCancel() {
-                System.out.println("calcen");
-                // ...
-            }
-            @Override
-            public void onError(FacebookException error) {
-                System.out.println(error.getMessage());
-                // ...
-            }
+     public void faceBookButtonOnClicked() {
+         FacebookSdk.sdkInitialize(this.getContext());
+
+         mCallbackManager = CallbackManager.Factory.create();
+         loginButton.setReadPermissions("email", "public_profile");
+         loginButton.setFragment(this);
+         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+             @Override
+             public void onSuccess(LoginResult loginResult) {
+                 handleFacebookAccessToken(loginResult.getAccessToken());
+             }
+             @Override
+             public void onCancel() {
+                 updateUI(null);
+             }
+             @Override
+             public void onError(FacebookException error) {
+                 updateUI(null);
+             }
         });
     }
 
 
+
     private void handleFacebookAccessToken(AccessToken token) {
-        System.out.println("handleFacebookAcessToken initiated");
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            verifySignIn(true);
+
                         } else {
                             // If sign in fails, display a message to the user.
-                            System.out.println(task.getException().getMessage());
-                            updateUI(null);
+                            verifySignIn(false);
                         }
                         // ...
                     }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                updateUI(null);
+            }
+        });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Pass the activity result back to the Facebook SDK
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
-    }
 
     //facebook login methods end!
 
@@ -145,7 +153,8 @@ public class profileFragment extends Fragment implements View.OnClickListener {
 
     //initiating buttons for logged in users listeners
     private void initiateLogggedInButtons(View view){
-
+        signOutButton = view.findViewById(R.id.signed_in_activity_signOutButton);
+        signOutButton.setOnClickListener(this);
     }
 
     //initiating buttons for NOT logged in users listeners
@@ -156,21 +165,34 @@ public class profileFragment extends Fragment implements View.OnClickListener {
         registerButton.setOnClickListener(this);
     }
 
+    /*
+        switch used for each button since fragment are usually an container
+        for one framelayout (in this case mainActivity) and will not recognize onClickmethods unless
+        they are in MainActivity.
+    */
     @Override
     public void onClick(View view){
         switch(view.getId()){
+            case R.id.signed_in_activity_signOutButton:
+                signOutButtonClicked();
+                break;
             case R.id.sign_in_activity_signInButton:
                 signInButtonClicked(view);
                 break;
             case R.id.sign_in_activity_registerButton:
-                registerButtonCLicked();
+                registerButtonClicked();
                 break;
             case R.id.sign_in_activity_facebookLoginButton:
-                faceBookButtonOnClick();
+                faceBookButtonOnClicked();
                 break;
         }
     }
-
+    //signOutButtonClicked signs user out when clicked and calls updateUI
+    public void signOutButtonClicked(){
+        FirebaseAuth.getInstance().signOut();
+        updateUI(null);
+    }
+    //signInButtonClicked checks with firebase if inputed values are correctly for one user then updates ui
     public void signInButtonClicked(View view){
         final Animation fade = AnimationUtils.loadAnimation(this.getContext(),R.anim.fade);
 
@@ -186,7 +208,29 @@ public class profileFragment extends Fragment implements View.OnClickListener {
         System.out.println(database);
         database.login("ald","ald2",this);
     }
-    //connected to signInButtonClicked
+
+    //registerButtonClicked reacts when register button clicked, opens new activity window for register
+    public void registerButtonClicked(){
+        Intent intent = new Intent(this.getActivity(),registerUserActivity.class);
+        startActivity(intent);
+    }
+
+
+    /*
+        Updates UI depending if youre logged in or not, takes in one firebaseUser named user and checks if this is null or not.
+        if it is will it reload fragment that then adapt fragment to user if logged in or not.
+    */
+    private void updateUI(FirebaseUser user){
+        if(user != null){
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.detach(this).attach(this).commit();
+        }else{
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.detach(this).attach(this).commit();
+        }
+    }
+
+    //verifies to user if (true) signed in or (false) not signed in
     public void verifySignIn(boolean success){
         signInProgressBar.setVisibility(View.GONE);
         if(success){
@@ -199,18 +243,4 @@ public class profileFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void registerButtonCLicked(){
-        Intent intent = new Intent(this.getActivity(),registerUserActivity.class);
-        startActivity(intent);
-    }
-
-    private void updateUI(FirebaseUser user){
-        if(user != null){
-            System.out.println("logged in");
-            //logged in
-        }else{
-            System.out.println("not logged in");
-            //not logged in
-        }
-    }
 }

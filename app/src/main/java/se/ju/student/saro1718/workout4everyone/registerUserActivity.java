@@ -65,6 +65,7 @@ public class registerUserActivity extends AppCompatActivity{
         } else {
             progressDialog.setMessage("Registering user...");
             progressDialog.show();
+            progressDialog.setCancelable(false);
             database.registerUser(username, password, email,this);
         }
     }
