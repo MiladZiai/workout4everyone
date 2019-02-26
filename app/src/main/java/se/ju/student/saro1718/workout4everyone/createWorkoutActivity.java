@@ -43,9 +43,6 @@ public class createWorkoutActivity extends AppCompatActivity {
     Button saveWorkoutButton, btnList;
     EditText edtTitle;
 
-
-    public static LocalDB localDB;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,15 +53,47 @@ public class createWorkoutActivity extends AppCompatActivity {
         saveWorkoutButton = (Button) findViewById(R.id.saveWorkoutButton);
         saveProgressBar.setVisibility(View.GONE);
 
+        imageView = (ImageView) findViewById(R.id.imageView);
+
+
 
         //image view on create
         imageViewClickListener();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(imageUri != null) {
+            //bitmap to byte array
+            Bitmap savedImage = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            savedImage.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] data = baos.toByteArray();
+            //imageUri to string
+            String uri = imageUri.toString();
 
+            outState.putByteArray("image", data);
+            outState.putString("imageUri",uri);
+
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        byte[] data = savedInstanceState.getByteArray("image");
+        String imageUriSaved = savedInstanceState.getString("imageUri");
+        if(imageUriSaved != null)  {
+            Bitmap savedImage = BitmapFactory.decodeByteArray(data, 0, data.length);
+            imageView.setImageBitmap(savedImage);
+            imageUri = Uri.parse(imageUriSaved);
+        }
+
+    }
 
     public void imageViewClickListener(){
-        imageView = (ImageView) findViewById(R.id.imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

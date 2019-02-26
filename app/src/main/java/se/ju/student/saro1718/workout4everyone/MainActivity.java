@@ -2,14 +2,22 @@ package se.ju.student.saro1718.workout4everyone;
 
 import android.content.Intent;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -24,6 +32,23 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "se.ju.student.saro1718.workout4everyone",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                System.out.println(Base64.encodeToString(md.digest(),Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (NoSuchAlgorithmException e) {
+            System.out.println(e.getMessage());
+        }*/
+
 
         //setup databases
         database = new fireBaseApi();
@@ -70,6 +95,7 @@ public class MainActivity extends AppCompatActivity{
             return true;
         }
     };
+
 
 
 
