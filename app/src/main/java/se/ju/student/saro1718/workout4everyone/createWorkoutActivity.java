@@ -139,16 +139,18 @@ public class createWorkoutActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-
-        if(resultCode == RESULT_OK && requestCode == PICK_IMAGE){
+        if(resultCode == RESULT_OK ){
+            imageUri = null;
             imageUri = data.getData();
-            imageView.setImageURI(imageUri);
-        }
-        if(resultCode == RESULT_OK && requestCode == REQUEST_CAPTURE){
-            imageUri = Uri.parse("capturedImageUri");
-            Bundle extras = data.getExtras();
-            Bitmap photo = (Bitmap) extras.get("data");
-            imageView.setImageBitmap(photo);
+            //null captured, not null gallery
+            if(imageUri != null) {
+                imageView.setImageURI(imageUri);
+            }else{
+                imageUri = Uri.parse("capturedImageUri");
+                Bundle extras = data.getExtras();
+                Bitmap photo = (Bitmap) extras.get("data");
+                imageView.setImageBitmap(photo);
+            }
         }
     }
 
