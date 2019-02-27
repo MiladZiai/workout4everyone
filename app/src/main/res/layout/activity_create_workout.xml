@@ -19,8 +19,8 @@
             android:layout_height="200sp"
             android:layout_gravity="center"
             android:contentDescription="@string/workoutImage"
-            app:srcCompat="@drawable/grey_color"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/grey_color" />
 
         <LinearLayout
             android:id="@+id/titleLinearLayout"
