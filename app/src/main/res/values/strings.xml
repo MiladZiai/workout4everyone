@@ -26,6 +26,8 @@
     <string name="workoutImage">picture</string>
     <string name="register">register</string>
     <string name="email">E-mail</string>
+    <string name="policyCouldntLoad">Policy couldn\'t load, please try again!</string>
+    <string name="terms_and_conditions">Terms and conditions</string>
 </resources>
 
 

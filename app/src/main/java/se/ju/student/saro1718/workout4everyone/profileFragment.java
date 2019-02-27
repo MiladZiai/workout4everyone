@@ -48,6 +48,7 @@ public class profileFragment extends Fragment implements View.OnClickListener {
     private LoginButton loginButton;
     private Button signInButton;
     private Button registerButton;
+    private Button termsAndConditionButton;
 
     //logged in buttons
     private Button signOutButton;
@@ -163,6 +164,8 @@ public class profileFragment extends Fragment implements View.OnClickListener {
         signInButton.setOnClickListener(this);
         registerButton = view.findViewById(R.id.sign_in_activity_registerButton);
         registerButton.setOnClickListener(this);
+        termsAndConditionButton = view.findViewById(R.id.sign_in_activity_termsAndConditionButton);
+        termsAndConditionButton.setOnClickListener(this);
     }
 
     /*
@@ -173,9 +176,11 @@ public class profileFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view){
         switch(view.getId()){
+            //logged in
             case R.id.signed_in_activity_signOutButton:
                 signOutButtonClicked();
                 break;
+            //not logged in
             case R.id.sign_in_activity_signInButton:
                 signInButtonClicked(view);
                 break;
@@ -184,6 +189,9 @@ public class profileFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.sign_in_activity_facebookLoginButton:
                 faceBookButtonOnClicked();
+                break;
+            case R.id.sign_in_activity_termsAndConditionButton:
+                termsAndConditionButtonClicked();
                 break;
         }
     }
@@ -212,6 +220,12 @@ public class profileFragment extends Fragment implements View.OnClickListener {
     //registerButtonClicked reacts when register button clicked, opens new activity window for register
     public void registerButtonClicked(){
         Intent intent = new Intent(this.getActivity(),registerUserActivity.class);
+        startActivity(intent);
+    }
+
+    //terms and condition button clicked, oepns new activity window for policy to read
+    public void termsAndConditionButtonClicked(){
+        Intent intent = new Intent(this.getActivity(),policyActivity.class);
         startActivity(intent);
     }
 

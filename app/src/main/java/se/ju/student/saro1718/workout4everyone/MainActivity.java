@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity{
 
 
         //bottom navigation bar
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavbar);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavbar);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         if(savedInstanceState == null) {
             switchFragment(R.id.nav_home);
