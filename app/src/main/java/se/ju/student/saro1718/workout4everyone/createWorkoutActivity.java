@@ -67,7 +67,7 @@ public class createWorkoutActivity extends AppCompatActivity {
             //bitmap to byte array
             Bitmap savedImage = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            savedImage.compress(Bitmap.CompressFormat.JPEG, 10, baos);
+            savedImage.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] data = baos.toByteArray();
             //imageUri to string
             String uri = imageUri.toString();
