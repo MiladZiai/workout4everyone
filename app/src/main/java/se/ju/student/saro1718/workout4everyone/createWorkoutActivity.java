@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.net.URI;
 import java.util.ArrayList;
 
 
@@ -54,8 +55,6 @@ public class createWorkoutActivity extends AppCompatActivity {
         saveProgressBar.setVisibility(View.GONE);
 
         imageView = (ImageView) findViewById(R.id.imageView);
-
-
 
         //image view on create
         imageViewClickListener();
@@ -146,6 +145,7 @@ public class createWorkoutActivity extends AppCompatActivity {
             imageView.setImageURI(imageUri);
         }
         if(resultCode == RESULT_OK && requestCode == REQUEST_CAPTURE){
+            imageUri = Uri.parse("capturedImageUri");
             Bundle extras = data.getExtras();
             Bitmap photo = (Bitmap) extras.get("data");
             imageView.setImageBitmap(photo);

@@ -10,7 +10,8 @@
         android:id="@+id/imageOfListViewCell"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_weight="1"
+        android:layout_weight="0"
+        android:layout_margin="@dimen/fab_margin"
         tools:srcCompat="@tools:sample/avatars" />
 
     <LinearLayout

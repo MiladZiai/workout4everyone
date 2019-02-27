@@ -27,6 +27,7 @@
             android:theme="@style/AppTheme.CustomTheme"
             ></activity>
         <activity android:name=".registerUserActivity"></activity>
+        <activity android:name=".policyActivity"></activity>
 
 
         <!-- facebook manifest -->

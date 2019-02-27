@@ -19,4 +19,6 @@
     <string name="Password">lösenord</string>
     <string name="SignIn">Logga in</string>
     <string name="email">E-post adress</string>
+    <string name="policyCouldntLoad">Policy kunde inte laddas, var god och testa igen</string>
+    <string name="terms_and_conditions">villkor</string>
 </resources>
