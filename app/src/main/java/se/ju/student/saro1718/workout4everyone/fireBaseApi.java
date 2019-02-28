@@ -70,7 +70,7 @@ public class fireBaseApi {
     ///////////////////////////////////////////////////////////////
 
     //creates workout
-    public void createWorkout(workoutsData.workoutVariables workout, final Bitmap bitmap, final createWorkoutActivity createworkoutactivity){
+    public void createWorkout(workoutsData.workoutVariables workout, final byte[] data, final createWorkoutActivity createworkoutactivity){
         System.out.println("create workout initited");
         Map<String, Object> workoutToBeMade = new HashMap<>();
         workoutToBeMade.put("ownerId",workout.getOwnerId());
@@ -82,7 +82,7 @@ public class fireBaseApi {
         db.collection("workoutsTable").add(workoutToBeMade).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                insertImage(bitmap,documentReference.getId(),createworkoutactivity);
+                insertImage(data,documentReference.getId(),createworkoutactivity);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -164,14 +164,10 @@ public class fireBaseApi {
     ///////////////////////////////////////////////////////////////
 
     //inserts image to firebase storage
-    public void insertImage(Bitmap image, String imageId, final createWorkoutActivity createworkoutactivity){
+    public void insertImage(byte[] data, String imageId, final createWorkoutActivity createworkoutactivity){
 
         StorageReference storageRef = storage.getReference();
         StorageReference imageRef = storageRef.child("images/" + imageId);
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG,10,baos);
-        byte[] data = baos.toByteArray();
 
         UploadTask uploadTask = imageRef.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
