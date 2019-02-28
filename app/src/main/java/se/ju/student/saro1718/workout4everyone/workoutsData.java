@@ -1,7 +1,6 @@
 package se.ju.student.saro1718.workout4everyone;
 
 import android.graphics.Bitmap;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -81,11 +80,12 @@ public class workoutsData{
             this.workoutLevel = workoutLevel;
         }
 
-        //sets workoutImage to inserted imageUrl in parameters
+        //sets workoutImage to inserted imageUrl in parameters (used by global database since we store the image as the post id)
         public void setWorkoutImage(String imageUrl){
             this.workoutImage = imageUrl;
         }
 
+        //sets workoutBitmap to inserted bitmap in parameters
         public void setWorkoutBitmap(Bitmap bitmap){
             this.workoutBitmap = bitmap;
         }
@@ -98,8 +98,6 @@ public class workoutsData{
             this.workoutLevel = workoutLevel;
             this.workoutImage = workoutImage;
         }
-
-
     }
 
 

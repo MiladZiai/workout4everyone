@@ -10,39 +10,36 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-import java.net.URI;
 import java.util.ArrayList;
 
 
-import static se.ju.student.saro1718.workout4everyone.MainActivity.database;
 import static se.ju.student.saro1718.workout4everyone.MainActivity.localDatabase;
 
 public class createWorkoutActivity extends AppCompatActivity {
 
-    ImageView imageView;
+    //capture,gallery image variables
     private static final int PICK_IMAGE = 100;
     private static final int REQUEST_CAPTURE = 1;
-    Uri imageUri;
-    ProgressBar saveProgressBar;
-    Button saveWorkoutButton, btnList;
-    EditText edtTitle;
+
+
+    private ImageView imageView;
+    private Uri imageUri;
+    private ProgressBar saveProgressBar;
+    private Button saveWorkoutButton;
+    private int difficultyCounter = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,21 +57,21 @@ public class createWorkoutActivity extends AppCompatActivity {
         imageViewClickListener();
     }
 
+    /*
+       runtime configuration changes methods
+    */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if(imageUri != null) {
             //bitmap to byte array
-            Bitmap savedImage = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            savedImage.compress(Bitmap.CompressFormat.JPEG, 10, baos);
-            byte[] data = baos.toByteArray();
+            byte[] data = imageViewToByte(imageView);
+
             //imageUri to string
             String uri = imageUri.toString();
 
             outState.putByteArray("image", data);
             outState.putString("imageUri",uri);
-
         }
     }
 
@@ -92,6 +89,12 @@ public class createWorkoutActivity extends AppCompatActivity {
 
     }
 
+
+    //runtime configuration changes END
+
+    /*
+        camera, gallery methods
+    */
     public void imageViewClickListener(){
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +119,6 @@ public class createWorkoutActivity extends AppCompatActivity {
                         break;
                     case 1:
                         launchCamera();
-
                         break;
                 }
             }
@@ -124,12 +126,10 @@ public class createWorkoutActivity extends AppCompatActivity {
         pictureDialog.show();
     }
 
-
     public void launchCamera(){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_CAPTURE);
     }
-
 
     private void openGallery(){
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
@@ -154,13 +154,17 @@ public class createWorkoutActivity extends AppCompatActivity {
         }
     }
 
+    //camera,gallery methods END
 
+    /*
+        exercises (title,description) methods, listview buttons
+    */
     public void addButtonClicked(View view){
 
-        EditText editText = (EditText) findViewById(R.id.exerciseInput);
-        EditText editText1 = (EditText) findViewById(R.id.descInput);
-        String exerciseTitleInput = editText.getText().toString();
-        String exerciseDescInput = editText1.getText().toString();
+        EditText exerciseTitleEditText = (EditText) findViewById(R.id.exerciseInput);
+        EditText exerciseDescEditText = (EditText) findViewById(R.id.descInput);
+        String exerciseTitleInput = exerciseTitleEditText.getText().toString();
+        String exerciseDescInput = exerciseDescEditText.getText().toString();
         if(exerciseTitleInput.length() == 0 || exerciseDescInput.length() == 0){
             new AlertDialog.Builder(this).setTitle("Add Exercise").setMessage("Input both Exercise and Description!")
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
@@ -171,8 +175,8 @@ public class createWorkoutActivity extends AppCompatActivity {
         }else{
             workoutsData.exercises.add(new workoutsData.Exercise(exerciseTitleInput));
             workoutsData.descriptions.add(new workoutsData.Desc(exerciseDescInput));
-            editText.setText("");
-            editText1.setText("");
+            exerciseTitleEditText.setText("");
+            exerciseDescEditText.setText("");
         }
     }
 
@@ -181,17 +185,41 @@ public class createWorkoutActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //exercises (title,description) methods, listview buttons END
+
+    /*
+        swap difficulty method, swaps difficulty after pressed button
+    */
+    public void swapDifficultyButtonClicked(View view){
+        final String[] difficultyString = {getString(R.string.easy),getString(R.string.medium),getString(R.string.hard)};
+        final int[] difficultyColor = {ContextCompat.getColor(this,R.color.green),ContextCompat.getColor(this,R.color.blue),ContextCompat.getColor(this,R.color.red)};
+        Button difficultyButton = (Button) view.findViewById(R.id.create_workout_activity_difficultyButton);
+
+        difficultyCounter++;
+
+        difficultyCounter = difficultyCounter % 3;
+
+        difficultyButton.setText(difficultyString[difficultyCounter]);
+        difficultyButton.setBackgroundColor(difficultyColor[difficultyCounter]);
+
+
+    }
+    // swap difficulty method END
 
     //last step in create workout, saves everything to database
     public void saveButtonClicked(View view){
 
-        animateButton();
-
-
-        //values for workout
-        //String ownerId = database.getUser();
         EditText titleInput = (EditText) findViewById(R.id.titleInput);
+
         String title = titleInput.getText().toString();
+        if(title.length() == 0 || imageUri == null){
+            Toast.makeText(this,"please make sure that you have a title and image!",Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        byte[] data = imageViewToByte(imageView);
+
+        animateButton();
 
         ArrayList<String> exerciseTitles = new ArrayList<>();
         ArrayList<String> exerciseDescriptions = new ArrayList<>();
@@ -201,19 +229,15 @@ public class createWorkoutActivity extends AppCompatActivity {
             exerciseDescriptions.add(workoutsData.descriptions.get(i).toString());
         }
 
-        String level = "advanced";
-
-
-        workoutsData.workoutVariables workoutToBeCreated = new workoutsData.workoutVariables("test",title,exerciseTitles,exerciseDescriptions,level, "");
+        Button difficultyButton = (Button) findViewById(R.id.create_workout_activity_difficultyButton);
+        String level = difficultyButton.getText().toString();
 
         imageView.invalidate();
 
-        BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
-
-        Bitmap bitmap = drawable.getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,10,baos);
-        byte[] data = baos.toByteArray();
+        workoutsData.workoutVariables workoutToBeCreated = new workoutsData.workoutVariables("test",title,exerciseTitles,exerciseDescriptions,level, "");
+        
+        //send all information to database
+        //database.createWorkout(workoutToBeCreated,data,this);
 
         //database.createWorkout(workoutToBeCreated,bitmap,this);
         localDatabase.insertData(workoutToBeCreated.getWorkoutTitle(),data,exerciseTitles,exerciseDescriptions,"hej5");
@@ -246,15 +270,12 @@ public class createWorkoutActivity extends AppCompatActivity {
 
     }
 
-
-
     private byte[] imageViewToByte(ImageView image){
-        Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArr = stream.toByteArray();
+        Bitmap savedImage = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        savedImage.compress(Bitmap.CompressFormat.JPEG, 10, baos);
+        byte[] byteArr = baos.toByteArray();
         return byteArr;
-
     }
 
 
