@@ -239,7 +239,8 @@ public class createWorkoutActivity extends AppCompatActivity {
         //send all information to database
         //database.createWorkout(workoutToBeCreated,data,this);
 
-        localDatabase.insertData(workoutToBeCreated.getWorkoutTitle(),data,exerciseTitles,exerciseDescriptions);
+        //database.createWorkout(workoutToBeCreated,bitmap,this);
+        localDatabase.insertData(workoutToBeCreated.getWorkoutTitle(),data,exerciseTitles,exerciseDescriptions,"hej5");
 
     }
 
