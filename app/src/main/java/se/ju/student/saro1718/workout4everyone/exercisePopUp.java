@@ -44,13 +44,6 @@ public class exercisePopUp extends AppCompatActivity {
     }
 
 
-    //removes exercise from listView
-    public void removeButtonClicked(View view){
-        workoutsData.exercises.remove(this.position);
-        workoutsData.descriptions.remove(this.position);
-        finish();
-    }
-
 
 
 }

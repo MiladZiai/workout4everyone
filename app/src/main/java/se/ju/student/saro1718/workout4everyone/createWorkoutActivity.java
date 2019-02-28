@@ -206,7 +206,6 @@ public class createWorkoutActivity extends AppCompatActivity {
 
         workoutsData.workoutVariables workoutToBeCreated = new workoutsData.workoutVariables("test",title,exerciseTitles,exerciseDescriptions,level, "");
 
-
         imageView.invalidate();
 
         BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
@@ -216,7 +215,8 @@ public class createWorkoutActivity extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.JPEG,10,baos);
         byte[] data = baos.toByteArray();
 
-        localDatabase.insertData(workoutToBeCreated.getWorkoutTitle(),data,exerciseTitles,exerciseDescriptions);
+        //database.createWorkout(workoutToBeCreated,bitmap,this);
+        localDatabase.insertData(workoutToBeCreated.getWorkoutTitle(),data,exerciseTitles,exerciseDescriptions,"hej5");
 
     }
 
