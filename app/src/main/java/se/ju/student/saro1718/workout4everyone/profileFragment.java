@@ -44,25 +44,19 @@ public class profileFragment extends Fragment implements View.OnClickListener {
 
     private FirebaseAuth mAuth = database.getFirebaseAuth();
 
-    //not logged in buttons
+    //not logged in buttons,progressbar
     private LoginButton loginButton;
     private Button signInButton;
     private Button registerButton;
     private Button termsAndConditionButton;
+    private ProgressBar signInProgressBar;
 
     //logged in buttons
     private Button signOutButton;
 
-    private ProgressBar signInProgressBar;
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //FacebookSdk.sdkInitialize(getApplicationContext());
         FirebaseUser user = mAuth.getCurrentUser();
 
         if (user != null) {
@@ -101,8 +95,10 @@ public class profileFragment extends Fragment implements View.OnClickListener {
          FacebookSdk.sdkInitialize(this.getContext());
 
          mCallbackManager = CallbackManager.Factory.create();
+
          loginButton.setReadPermissions("email", "public_profile");
          loginButton.setFragment(this);
+
          loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
              @Override
              public void onSuccess(LoginResult loginResult) {
@@ -118,8 +114,6 @@ public class profileFragment extends Fragment implements View.OnClickListener {
              }
         });
     }
-
-
 
     private void handleFacebookAccessToken(AccessToken token) {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
@@ -144,7 +138,6 @@ public class profileFragment extends Fragment implements View.OnClickListener {
             }
         });
     }
-
 
     //facebook login methods end!
 

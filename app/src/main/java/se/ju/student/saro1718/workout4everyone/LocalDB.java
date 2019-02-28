@@ -21,7 +21,7 @@ public class LocalDB extends SQLiteOpenHelper {
         super(context, name, factory, version);
         database =  getWritableDatabase();
 
-        String workoutTableQuery = "CREATE TABLE IF NOT EXISTS WORKOUT (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR, image BLOG)";
+        String workoutTableQuery = "CREATE TABLE IF NOT EXISTS WORKOUT (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR, image BLOG, postId VARCHAR)";
         String exerciseTableQuery = "CREATE TABLE IF NOT EXISTS EXERCISES (ownerID INTEGER , place INTEGER, title VARCHAR, description VARCHAR, CONSTRAINT fk_column FOREIGN KEY(ownerID) REFERENCES WORKOUT(id))";
 
         database.execSQL(workoutTableQuery);
@@ -69,6 +69,7 @@ public class LocalDB extends SQLiteOpenHelper {
             ArrayList<String> exerciseTitleArray = new ArrayList<>();
             ArrayList<String> exerciseDescriptionArray = new ArrayList<>();
 
+            //this is for all exercises since sqlite database can't store arrays
             while(cursorExerciseTable.moveToNext()){
                 exerciseTitleArray.add(cursorExerciseTable.getString(2));
                 exerciseDescriptionArray.add(cursorExerciseTable.getString(3));

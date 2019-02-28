@@ -21,4 +21,7 @@
     <string name="email">E-post adress</string>
     <string name="policyCouldntLoad">Policy kunde inte laddas, var god och testa igen</string>
     <string name="terms_and_conditions">villkor</string>
+    <string name="medium">medel</string>
+    <string name="hard">svår</string>
+    <string name="easy">enkel</string>
 </resources>
