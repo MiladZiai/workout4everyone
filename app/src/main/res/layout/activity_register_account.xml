@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#0f3b52">
 
 
     <RelativeLayout
@@ -11,52 +12,59 @@
 
         <EditText
             android:id="@+id/email_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="100sp"
-            android:ems="15"
+            android:layout_marginTop="100dp"
+            android:paddingLeft="10dp"
             android:hint="Email:"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:background="@drawable/edittext_rounded_borders"
+            android:drawableLeft="@drawable/ic_email"/>
 
         <EditText
             android:id="@+id/username_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="170sp"
-            android:ems="15"
+            android:layout_marginTop="170dp"
+            android:paddingLeft="10dp"
             android:hint="Username:"
-            android:inputType="text" />
+            android:inputType="text"
+            android:background="@drawable/edittext_rounded_borders"
+            android:drawableLeft="@drawable/ic_user"/>
 
         <EditText
             android:id="@+id/password_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="240sp"
-            android:ems="15"
+            android:layout_marginTop="240dp"
+            android:paddingLeft="10dp"
             android:hint="Password:"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:background="@drawable/edittext_rounded_borders"
+            android:drawableLeft="@drawable/ic_password"/>
 
         <EditText
             android:id="@+id/password2_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="310sp"
-            android:ems="15"
+            android:layout_marginTop="310dp"
+            android:paddingLeft="10dp"
             android:hint="Repeat password:"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:background="@drawable/edittext_rounded_borders"
+            android:drawableLeft="@drawable/ic_repeat"/>
 
         <Button
             android:id="@+id/registerButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="30sp"
+            android:layout_margin="30dp"
             android:textColor="#FFFFFF"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:background="@drawable/btnshape"
             android:shadowColor="#A8A8A8"
             android:shadowDx="0"

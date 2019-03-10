@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import static se.ju.student.saro1718.workout4everyone.MainActivity.database;
 
 public class LocalDB extends SQLiteOpenHelper {
+
     private static SQLiteDatabase database;
 
     public LocalDB(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -26,8 +27,8 @@ public class LocalDB extends SQLiteOpenHelper {
             String droptable2 = "DROP TABLE EXERCISES";
             database.execSQL(droptable1);
             database.execSQL(droptable2);
+            */
 
-        */
 
             String workoutTableQuery = "CREATE TABLE IF NOT EXISTS WORKOUT (postID VARCHAR UNIQUE, title VARCHAR, image BLOG)";
             String exerciseTableQuery = "CREATE TABLE IF NOT EXISTS EXERCISES (ownerID VARCHAR , place INTEGER, title VARCHAR, description VARCHAR, CONSTRAINT fk_column FOREIGN KEY(ownerID) REFERENCES WORKOUT(id))";
@@ -136,5 +137,6 @@ public class LocalDB extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
 
 }
