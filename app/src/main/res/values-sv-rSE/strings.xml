@@ -29,4 +29,7 @@
     <string name="ViewFavourites">Visa Favoriter</string>
     <string name="navdraweropen">öppna navigationslåda</string>
     <string name="navdrawerclose">stäng navigationslåda</string>
+    <string name="medium">medel</string>
+    <string name="hard">svår</string>
+    <string name="easy">enkel</string>
 </resources>

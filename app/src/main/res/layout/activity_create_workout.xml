@@ -121,14 +121,7 @@
                 android:id="@+id/addButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="15sp"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp"
-                android:background="@drawable/btnshape"
-                android:shadowColor="#A8A8A8"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
+                style="@style/customButtomStyle"
                 android:layout_weight="1"
                 android:onClick="addButtonClicked"
                 android:text="@string/addExercise" />
@@ -137,14 +130,7 @@
                 android:id="@+id/goToExerciseActivity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="15sp"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp"
-                android:background="@drawable/btnshape"
-                android:shadowColor="#A8A8A8"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
+                style="@style/customButtomStyle"
                 android:layout_weight="1"
                 android:onClick="viewCurrentListButtonClicked"
                 android:text="@string/viewEx" />
@@ -157,17 +143,20 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/create_workout_activity_difficultyButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                style="@style/customButtomStyle"
+                android:background="@color/green"
+                android:text="@string/easy"
+                android:onClick="swapDifficultyButtonClicked"/>
+
+            <Button
                 android:id="@+id/saveWorkoutButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp"
-                android:background="@drawable/btnshape"
-                android:shadowColor="#A8A8A8"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
+                style="@style/customButtomStyle"
                 android:text="@string/save"
                 android:onClick="saveButtonClicked"/>
 
