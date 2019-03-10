@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/Home"/>
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_account_box_black_24dp"
+            android:title="@string/Profile"/>
+    </group>
+
+    <item android:title="Menu">
+        <menu>
+            <item android:id="@+id/view_workouts"
+                android:icon="@drawable/ic_list"
+                android:title="@string/viewWorkouts"/>
+            <item android:id="@+id/create_workouts"
+                android:icon="@drawable/ic_create"
+                android:title="@string/CreateWorkout"/>
+            <item android:id="@+id/view_favourites"
+                android:icon="@drawable/ic_star_black_24dp"
+                android:title="@string/ViewFavourites"/>
+        </menu>
+    </item>
+
+</menu>

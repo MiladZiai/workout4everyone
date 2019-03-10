@@ -5,6 +5,9 @@
 
     <uses-feature android:name="android.hardware.camera2" android:required="true"/>
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
 
     <application
         android:allowBackup="true"
@@ -14,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity">
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>
                 <category android:name="android.intent.category.LAUNCHER"></category>
@@ -28,6 +32,7 @@
             ></activity>
         <activity android:name=".registerUserActivity"></activity>
         <activity android:name=".policyActivity"></activity>
+        <activity android:name=".workoutDetailView"></activity>
 
 
         <!-- facebook manifest -->

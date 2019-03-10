@@ -1,5 +1,6 @@
 package se.ju.student.saro1718.workout4everyone;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,7 +10,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -29,12 +32,17 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.List;
 
+
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
 import static se.ju.student.saro1718.workout4everyone.MainActivity.database;
 import static se.ju.student.saro1718.workout4everyone.MainActivity.localDatabase;
 
-public class createWorkoutActivity extends AppCompatActivity {
+public class createWorkoutActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
 
     ImageView imageView;
     private static final int PICK_IMAGE = 100;
@@ -60,6 +68,7 @@ public class createWorkoutActivity extends AppCompatActivity {
         imageViewClickListener();
     }
 
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -78,6 +87,7 @@ public class createWorkoutActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -92,6 +102,7 @@ public class createWorkoutActivity extends AppCompatActivity {
 
     }
 
+
     public void imageViewClickListener(){
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +111,7 @@ public class createWorkoutActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void showPictureDialog(){
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
@@ -125,11 +137,25 @@ public class createWorkoutActivity extends AppCompatActivity {
     }
 
 
+    @AfterPermissionGranted(123)
     public void launchCamera(){
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, REQUEST_CAPTURE);
+
+        String[] perms = {Manifest.permission.CAMERA};
+        if(EasyPermissions.hasPermissions(this, perms)){
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, REQUEST_CAPTURE);
+        } else{
+            EasyPermissions.requestPermissions(this, "Allow MyWorkoutPal to access the camera", 123, perms);
+        }
+
     }
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
 
     private void openGallery(){
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
@@ -139,7 +165,7 @@ public class createWorkoutActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK ){
+        if(resultCode == RESULT_OK){
             imageUri = null;
             imageUri = data.getData();
             //null captured, not null gallery
@@ -175,6 +201,7 @@ public class createWorkoutActivity extends AppCompatActivity {
             editText1.setText("");
         }
     }
+
 
     public void viewCurrentListButtonClicked(View view){
         Intent intent = new Intent(this, viewExerciseListActivity.class);
@@ -220,6 +247,7 @@ public class createWorkoutActivity extends AppCompatActivity {
 
     }
 
+
     public void verifyInsert(boolean success,Exception e){
         if(success){
             //toast ok
@@ -247,7 +275,6 @@ public class createWorkoutActivity extends AppCompatActivity {
     }
 
 
-
     private byte[] imageViewToByte(ImageView image){
         Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -258,7 +285,15 @@ public class createWorkoutActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
 
+    }
 
-
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog.Builder(this).build().show();
+        }
+    }
 }

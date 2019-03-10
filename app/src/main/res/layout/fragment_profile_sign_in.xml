@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".profileFragment"
-    >
+    tools:context=".profileFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,8 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/email"
-            />
+            android:text="@string/email" />
 
         <EditText
             android:id="@+id/sign_in_activity_EmailInput"
@@ -29,16 +27,14 @@
             android:layout_gravity="center"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text=""
-            />
+            android:text="" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/Password"
-            />
+            android:text="@string/Password" />
 
         <EditText
             android:id="@+id/sign_in_activity_passwordInput"
@@ -47,47 +43,42 @@
             android:layout_gravity="center"
             android:layout_weight="0"
             android:ems="10"
-            android:inputType="textPassword"
-            />
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/sign_in_activity_signInButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/SignIn"
-            />
+            android:text="@string/SignIn" />
 
         <ProgressBar
             android:id="@+id/sign_in_activity_signInProgressBar"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
 
         <Button
             android:id="@+id/sign_in_activity_registerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/register"
-            />
+            android:text="@string/register" />
 
-        <com.facebook.login.widget.LoginButton
-            xmlns:fb="http://schemas.android.com/apk/res-auto"
+        <com.facebook.login.widget.LoginButton xmlns:fb="http://schemas.android.com/apk/res-auto"
             android:id="@+id/sign_in_activity_facebookLoginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/fab_margin"
-            android:layout_marginBottom="@dimen/fab_margin"
-            />
+            android:layout_marginBottom="@dimen/fab_margin" />
 
         <Button
             android:id="@+id/sign_in_activity_termsAndConditionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/terms_and_conditions"/>
+            android:text="@string/terms_and_conditions" />
     </LinearLayout>
 </ScrollView>

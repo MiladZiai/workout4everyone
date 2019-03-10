@@ -21,4 +21,12 @@
     <string name="email">E-post adress</string>
     <string name="policyCouldntLoad">Policy kunde inte laddas, var god och testa igen</string>
     <string name="terms_and_conditions">villkor</string>
+    <string name="workoutTitle">träningspass titel</string>
+    <string name="exerciseTitle">övning titel</string>
+    <string name="exerciseDesc">övnings beskrivning</string>
+    <string name="viewWorkouts">Visa Träningspass</string>
+    <string name="CreateWorkout">Skapa Träningspass</string>
+    <string name="ViewFavourites">Visa Favoriter</string>
+    <string name="navdraweropen">öppna navigationslåda</string>
+    <string name="navdrawerclose">stäng navigationslåda</string>
 </resources>

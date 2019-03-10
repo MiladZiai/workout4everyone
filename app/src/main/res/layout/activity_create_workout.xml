@@ -5,8 +5,8 @@
     android:id="@+id/ParentLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:background="#0f3b52">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,24 +26,28 @@
             android:id="@+id/titleLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="25dp"
                 android:text="@string/Title"
                 android:textColor="@color/colorAccent"
-                android:textSize="19sp"
+                android:textSize="20sp"
                 android:textStyle="bold|italic" />
 
             <EditText
                 android:id="@+id/titleInput"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5sp"
-                android:layout_weight="4"
+                android:layout_width="350dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/edittext_rounded_borders"
+                android:hint="@string/workoutTitle"
+                android:paddingLeft="10dp"
                 android:singleLine="true" />
 
         </LinearLayout>
@@ -52,23 +56,27 @@
             android:id="@+id/ExerciseLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="25dp"
                 android:text="@string/Exercise"
                 android:textColor="@color/colorAccent"
-                android:textSize="19sp"
+                android:textSize="20dp"
                 android:textStyle="bold|italic" />
 
             <EditText
                 android:id="@+id/exerciseInput"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5sp"
-                android:layout_weight="4"
+                android:layout_width="350dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/edittext_rounded_borders"
+                android:hint="@string/exerciseTitle"
+                android:paddingLeft="10dp"
                 android:singleLine="true" />
 
 
@@ -79,24 +87,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="25dp"
                 android:text="@string/Description"
                 android:textColor="@color/colorAccent"
-                android:textSize="19sp"
+                android:textSize="20dp"
                 android:textStyle="bold|italic" />
 
             <EditText
                 android:id="@+id/descInput"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5sp"
-                android:layout_weight="4"
-                android:singleLine="true" />
+                android:layout_width="350dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/edittext_rounded_borders"
+                android:hint="@string/exerciseDesc"
+                android:paddingLeft="10dp"
+                android:singleLine="false" />
 
         </LinearLayout>
 
@@ -143,13 +155,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <Button
-                android:id="@+id/List"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button"
-                android:onClick="listBtnClicked"/>
 
             <Button
                 android:id="@+id/saveWorkoutButton"

@@ -158,7 +158,7 @@ public class viewWorkoutsListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(viewWorkoutsListActivity.this, viewExerciseListActivity.class);
+                Intent intent = new Intent(viewWorkoutsListActivity.this, workoutDetailView.class);
                 intent.putExtra("position",position);
                 startActivity(intent);
 

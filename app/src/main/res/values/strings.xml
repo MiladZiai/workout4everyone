@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">workout4everyone</string>
+    <string name="app_name">MyWorkoutPal</string>
     <string name="view_all_workouts">view all workouts</string>
     <string name="create_workout">create workout</string>
     <string name="view_favorite_workouts">View favorite</string>
@@ -28,6 +28,14 @@
     <string name="email">E-mail</string>
     <string name="policyCouldntLoad">Policy couldn\'t load, please try again!</string>
     <string name="terms_and_conditions">Terms and conditions</string>
+    <string name="workoutTitle">workout title</string>
+    <string name="exerciseTitle">exercise title</string>
+    <string name="exerciseDesc">exercise description</string>
+    <string name="viewWorkouts">View Workouts</string>
+    <string name="CreateWorkout">Create Workout</string>
+    <string name="ViewFavourites">View Favourites</string>
+    <string name="navdraweropen">navigation drawer open</string>
+    <string name="navdrawerclose">navigation drawer close</string>
 </resources>
 
 
