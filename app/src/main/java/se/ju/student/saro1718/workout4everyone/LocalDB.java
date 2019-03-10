@@ -3,7 +3,6 @@ package se.ju.student.saro1718.workout4everyone;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
@@ -28,7 +27,7 @@ public class LocalDB extends SQLiteOpenHelper {
             database.execSQL(droptable1);
             database.execSQL(droptable2);
 
-*/
+        */
 
             String workoutTableQuery = "CREATE TABLE IF NOT EXISTS WORKOUT (postID VARCHAR UNIQUE, title VARCHAR, image BLOG)";
             String exerciseTableQuery = "CREATE TABLE IF NOT EXISTS EXERCISES (ownerID VARCHAR , place INTEGER, title VARCHAR, description VARCHAR, CONSTRAINT fk_column FOREIGN KEY(ownerID) REFERENCES WORKOUT(id))";
@@ -47,7 +46,6 @@ public class LocalDB extends SQLiteOpenHelper {
         workoutTableValues.put("title",title);
         workoutTableValues.put("image",image);
 
-
         long id = database.insert("WORKOUT",null,workoutTableValues);
         if(id != -1) {
             for (int i = 0; i < exerciseTitleArray.size(); i++) {
@@ -57,11 +55,8 @@ public class LocalDB extends SQLiteOpenHelper {
                 exerciseTableValues.put("title", exerciseTitleArray.get(i));
                 exerciseTableValues.put("description", exerciseDescriptionArray.get(i));
                 database.insert("EXERCISES", null, exerciseTableValues);
-
             }
         }
-
-
     }
 
     public void readData(){
@@ -86,10 +81,10 @@ public class LocalDB extends SQLiteOpenHelper {
                     exerciseTitleArray.add(cursorExerciseTable.getString(2));
                     exerciseDescriptionArray.add(cursorExerciseTable.getString(3));
                 }
+                cursorExerciseTable.close();
             } catch (Exception e) {
                 //no rows in this
             }
-
 
             String title = null;
             byte[] image = new byte[0];
@@ -103,6 +98,8 @@ public class LocalDB extends SQLiteOpenHelper {
             workout.setWorkoutBitmap(imageBitmap);
 
             workoutsData.workoutList.add(workout);
+
+            cursorWorkoutTable.close();
 
         }
 
@@ -124,6 +121,8 @@ public class LocalDB extends SQLiteOpenHelper {
         deleteWorkoutStatement.bindString(1,id);
         deleteWorkoutStatement.execute();
 
+        deleteExerciseStatement.close();
+        deleteWorkoutStatement.close();
 
     }
 

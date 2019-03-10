@@ -26,6 +26,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 
+import static se.ju.student.saro1718.workout4everyone.MainActivity.database;
 import static se.ju.student.saro1718.workout4everyone.MainActivity.localDatabase;
 
 public class createWorkoutActivity extends AppCompatActivity {
@@ -88,8 +89,6 @@ public class createWorkoutActivity extends AppCompatActivity {
         }
 
     }
-
-
     //runtime configuration changes END
 
     /*
@@ -184,7 +183,6 @@ public class createWorkoutActivity extends AppCompatActivity {
         Intent intent = new Intent(this, viewExerciseListActivity.class);
         startActivity(intent);
     }
-
     //exercises (title,description) methods, listview buttons END
 
     /*
@@ -201,7 +199,6 @@ public class createWorkoutActivity extends AppCompatActivity {
 
         difficultyButton.setText(difficultyString[difficultyCounter]);
         difficultyButton.setBackgroundColor(difficultyColor[difficultyCounter]);
-
 
     }
     // swap difficulty method END
