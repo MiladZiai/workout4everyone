@@ -60,7 +60,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/private/var/folders/38/2pym6lcs0dx8jmyj72bqwsvm0000gn/T/AppTranslocation/E99A1EDF-EFE2-4B53-A093-100BE7D99DB4/d/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_list_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/private/var/folders/38/2pym6lcs0dx8jmyj72bqwsvm0000gn/T/AppTranslocation/274FCF27-EBDA-4D92-84C6-95828E4F2CDC/d/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_camera_alt_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -70,9 +70,12 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_list" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="height" value="40" />
+                            <entry key="outputName" value="ic_camera" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="$USER_HOME$" />
+                            <entry key="width" value="40" />
                           </map>
                         </option>
                       </PersistentState>

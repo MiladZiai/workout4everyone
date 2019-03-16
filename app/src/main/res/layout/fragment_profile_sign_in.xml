@@ -18,22 +18,23 @@
 
         <EditText
             android:id="@+id/sign_in_activity_EmailInput"
-            android:layout_width="220sp"
+            android:layout_width="300sp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/fab_margin"
             android:background="@drawable/edittext_shape"
-            android:drawableStart="@drawable/ic_account_circle_white_24dp"
-            android:drawableLeft="@drawable/ic_account_circle_white_24dp"
+            android:drawableStart="@drawable/fui_ic_mail_white_24dp"
+            android:drawableLeft="@drawable/fui_ic_mail_white_24dp"
             android:ems="10"
             android:inputType="textEmailAddress"
             android:hint="@string/email"
             android:textColorHint="@color/white"
+            android:textColor="@color/white"
             />
 
         <EditText
             android:id="@+id/sign_in_activity_passwordInput"
-            android:layout_width="220sp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/fab_margin"
@@ -43,6 +44,7 @@
             android:inputType="textPassword"
             android:hint="@string/Password"
             android:textColorHint="@color/white"
+            android:textColor="@color/white"
             />
 
         <Button

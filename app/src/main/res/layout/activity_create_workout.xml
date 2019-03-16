@@ -6,12 +6,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#0f3b52">
+    android:background="@drawable/background_color">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:layout_weight="1"
+                android:src="@drawable/ic_camera" />
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:layout_weight="1"
+                android:src="@drawable/ic_gallery" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/imageView"
@@ -20,6 +42,7 @@
             android:layout_gravity="center"
             android:contentDescription="@string/workoutImage"
             android:scaleType="fitCenter"
+            android:visibility="invisible"
             app:srcCompat="@drawable/grey_color" />
 
         <LinearLayout
@@ -35,7 +58,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="25dp"
                 android:text="@string/Title"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold|italic" />
 
@@ -48,7 +71,7 @@
                 android:background="@drawable/edittext_rounded_borders"
                 android:hint="@string/workoutTitle"
                 android:paddingLeft="10dp"
-                android:singleLine="true" />
+                android:singleLine="true"/>
 
         </LinearLayout>
 
@@ -64,7 +87,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="25dp"
                 android:text="@string/Exercise"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold|italic" />
 
@@ -95,7 +118,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="25dp"
                 android:text="@string/Description"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold|italic" />
 
@@ -119,21 +142,25 @@
 
             <Button
                 android:id="@+id/addButton"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                style="@style/customButtomStyle"
+                android:background="@drawable/button_shape"
                 android:layout_weight="1"
                 android:onClick="addButtonClicked"
-                android:text="@string/addExercise" />
+                android:text="@string/addExercise"
+                android:textColor="@color/red"
+                android:layout_margin="@dimen/fab_homeButtonsMargin"/>
 
             <Button
                 android:id="@+id/goToExerciseActivity"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                style="@style/customButtomStyle"
+                android:background="@drawable/button_shape"
                 android:layout_weight="1"
                 android:onClick="viewCurrentListButtonClicked"
-                android:text="@string/viewEx" />
+                android:text="@string/viewEx"
+                android:textColor="@color/red"
+                android:layout_margin="@dimen/fab_homeButtonsMargin"/>
 
         </LinearLayout>
 
@@ -147,7 +174,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                style="@style/customButtomStyle"
                 android:background="@color/green"
                 android:text="@string/easy"
                 android:onClick="swapDifficultyButtonClicked"/>
@@ -156,17 +182,21 @@
                 android:id="@+id/saveWorkoutButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/customButtomStyle"
+                android:background="@drawable/button_shape"
                 android:text="@string/save"
+                android:textColor="@color/red"
+                android:layout_margin="@dimen/fab_homeButtonsMargin"
                 android:onClick="saveButtonClicked"/>
-
             <ProgressBar
                 android:id="@+id/saveProgressBar"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
+
+
         </LinearLayout>
+
 
     </LinearLayout>
 
