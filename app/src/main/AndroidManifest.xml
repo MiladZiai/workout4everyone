@@ -3,11 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="se.ju.student.saro1718.workout4everyone">
 
-    <uses-feature android:name="android.hardware.camera2" android:required="true"/>
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="true" />
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -17,48 +19,47 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="se.ju.student.saro1718.workout4everyone.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"></action>
-                <category android:name="android.intent.category.LAUNCHER"></category>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".viewWorkoutsListActivity"></activity>
-        <activity android:name=".createWorkoutActivity"></activity>
-        <activity android:name=".viewExerciseListActivity"></activity>
-        <activity android:name=".exercisePopUp"
-            android:theme="@style/AppTheme.CustomTheme"
-            ></activity>
-        <activity android:name=".registerUserActivity"></activity>
-        <activity android:name=".policyActivity"></activity>
-        <activity android:name=".workoutDetailView"></activity>
+        <activity android:name="se.ju.student.saro1718.workout4everyone.viewWorkoutsListActivity" />
+        <activity android:name="se.ju.student.saro1718.workout4everyone.createWorkoutActivity" />
+        <activity android:name="se.ju.student.saro1718.workout4everyone.viewExerciseListActivity" />
+        <activity
+            android:name="se.ju.student.saro1718.workout4everyone.exercisePopUp"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name="se.ju.student.saro1718.workout4everyone.registerUserActivity" />
+        <activity android:name="se.ju.student.saro1718.workout4everyone.policyActivity" />
+        <activity android:name="se.ju.student.saro1718.workout4everyone.workoutDetailView" />
 
 
         <!-- facebook manifest -->
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            tools:replace="android:value"
-            android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"
+            tools:replace="android:value" />
 
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-
 
 </manifest>
