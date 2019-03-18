@@ -39,6 +39,28 @@
     <string name="ViewFavourites">View Favourites</string>
     <string name="navdraweropen">navigation drawer open</string>
     <string name="navdrawerclose">navigation drawer close</string>
+    <string name="signOut">Sign out</string>
+    <string name="profile">Profile</string>
+    <string name="myWorkouts">My workouts</string>
+    <string name="selectAction">Select action</string>
+    <string name="select_photo_from_gallery">select photo from gallery</string>
+    <string name="capture_photo_from_camera">capture photo from camera</string>
+    <string name="access_the_camera">Allow workout4everyone to access the camera</string>
+    <string name="Add_Exercise">Add Exercise</string>
+    <string name="Input_both_Exercise_and_Description">Input both exercise and description</string>
+    <string name="please_make_sure_that_you_have_a_title_and_image">please make sure that you have a title and image</string>
+    <string name="Enter_email_please">Enter email please</string>
+    <string name="Enter_a_username_please">Enter a username please</string>
+    <string name="Enter_a_password_please">Enter a password please</string>
+    <string name="Repeat_password_please">Repeat password please</string>
+    <string name="Password_must_match">Password must match</string>
+    <string name="Success_creating_account">Succeeded creating account</string>
+    <string name="succeeded_signing_in">Succeeded signing in</string>
+    <string name="check_email_and_password">failed to sign in, please check that email and password is correct</string>
+    <string name="Exersice_deleted">Exercise deleted</string>
+    <string name="Workout_deleted">Workout deleted</string>
+    <string name="Repeat_password">repeat password</string>
+    <string name="Registering_user">Registering user</string>
 </resources>
 
 

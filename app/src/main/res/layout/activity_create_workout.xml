@@ -13,28 +13,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:layout_weight="1"
-                android:src="@drawable/ic_camera" />
-
-            <ImageButton
-                android:id="@+id/imageButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:layout_weight="1"
-                android:src="@drawable/ic_gallery" />
-        </LinearLayout>
-
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
@@ -42,8 +20,7 @@
             android:layout_gravity="center"
             android:contentDescription="@string/workoutImage"
             android:scaleType="fitCenter"
-            android:visibility="invisible"
-            app:srcCompat="@drawable/grey_color" />
+            android:src="@drawable/ic_gallery"/>
 
         <LinearLayout
             android:id="@+id/titleLinearLayout"

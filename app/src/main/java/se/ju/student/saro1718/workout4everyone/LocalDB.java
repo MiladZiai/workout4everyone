@@ -11,8 +11,6 @@ import android.graphics.BitmapFactory;
 
 import java.util.ArrayList;
 
-import static se.ju.student.saro1718.workout4everyone.MainActivity.database;
-
 public class LocalDB extends SQLiteOpenHelper {
 
     private static SQLiteDatabase database;

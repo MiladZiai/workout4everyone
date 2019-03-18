@@ -6,17 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import org.w3c.dom.Text;
-
-import java.util.BitSet;
 
 import static se.ju.student.saro1718.workout4everyone.MainActivity.database;
 
@@ -53,17 +46,17 @@ public class registerUserActivity extends AppCompatActivity{
         String username = usernameInput.getText().toString().trim();
 
         if(TextUtils.isEmpty(email)){
-            Toast.makeText(this, "Enter email please!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getText(R.string.Enter_email_please), Toast.LENGTH_SHORT).show();
         } else if(TextUtils.isEmpty(username)){
-            Toast.makeText(this, "Enter a username please!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getText(R.string.Enter_a_username_please), Toast.LENGTH_SHORT).show();
         } else if(TextUtils.isEmpty(password)){
-            Toast.makeText(this, "Enter a password please!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getText(R.string.Enter_a_password_please), Toast.LENGTH_SHORT).show();
         } else if(TextUtils.isEmpty(password2)){
-            Toast.makeText(this, "Repeat password please!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getText(R.string.Repeat_password_please), Toast.LENGTH_SHORT).show();
         } else if(!password.equals(password2)){
-            Toast.makeText(this, "Password must match!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getText(R.string.Password_must_match), Toast.LENGTH_SHORT).show();
         } else {
-            progressDialog.setMessage("Registering user...");
+            progressDialog.setMessage(getText(R.string.Registering_user));
             progressDialog.show();
             progressDialog.setCancelable(false);
             database.registerUser(username, password, email,this);
@@ -74,7 +67,7 @@ public class registerUserActivity extends AppCompatActivity{
     public void verifiyRegistration(boolean success,Exception e){
         if(success){
             progressDialog.cancel();
-            Toast.makeText(this, "Success creating account", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getText(R.string.Success_creating_account), Toast.LENGTH_SHORT).show();
             finish();
         }else{
             progressDialog.cancel();
