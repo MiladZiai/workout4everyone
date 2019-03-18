@@ -27,7 +27,7 @@ public class exercisePopUp extends AppCompatActivity {
     public void fetchDescText(){
         this.position = getIntent().getIntExtra("position",position);
         TextView textview = (TextView) findViewById(R.id.descTextView);
-        textview.setText(workoutsData.descriptions.get(position).toString());
+        textview.setText(workoutsData.exercises.get(position).getDesc());
     }
 
 

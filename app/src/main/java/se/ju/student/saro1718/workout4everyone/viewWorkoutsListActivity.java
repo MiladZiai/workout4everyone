@@ -35,7 +35,7 @@ import static se.ju.student.saro1718.workout4everyone.MainActivity.localDatabase
 public class viewWorkoutsListActivity extends AppCompatActivity {
 
     ArrayList<workoutsData.workoutVariables> list;
-
+    private boolean global;
     SwipeMenuListView listView;
 
     @Override
@@ -45,13 +45,20 @@ public class viewWorkoutsListActivity extends AppCompatActivity {
 
         listView = (SwipeMenuListView) findViewById(R.id.viewAllWorkoutsListView);
 
-        swipeMenuCreator();
 
         workoutsData.workoutList.clear();
 
-        localDatabase.readData();
-        System.out.println(workoutsData.workoutList);
-        loadWorkouts(false);
+        global = false;
+        global = getIntent().getBooleanExtra("global",global);
+
+        if(global) {
+            database.readAllDocuments(this,null);
+        }else {
+            localDatabase.readData();
+            swipeMenuCreator();
+        }
+
+        loadWorkouts();
     }
 
 
@@ -62,23 +69,6 @@ public class viewWorkoutsListActivity extends AppCompatActivity {
 
             @Override
             public void create(SwipeMenu menu) {
-                // create "open" item
-                SwipeMenuItem openItem = new SwipeMenuItem(
-                        getApplicationContext());
-                // set item background
-                openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
-                        0xCE)));
-                // set item width
-                openItem.setWidth(170);
-                // set item title
-                openItem.setTitle("Open");
-                // set item title fontsize
-                openItem.setTitleSize(18);
-                // set item title font color
-                openItem.setTitleColor(Color.WHITE);
-                // add to menu
-                menu.addMenuItem(openItem);
-
                 // create "delete" item
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getApplicationContext());
@@ -101,9 +91,6 @@ public class viewWorkoutsListActivity extends AppCompatActivity {
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        // open
-                        break;
-                    case 1:
                         // delete
                         localDatabase.deleteRow(workoutsData.workoutList.get(position).getOwnerId());
 
@@ -122,7 +109,7 @@ public class viewWorkoutsListActivity extends AppCompatActivity {
     }
 
     // load all workouts with custom listview
-    private void loadWorkouts(final boolean global){
+    public void loadWorkouts(){
 
         ListView workoutsListView = (ListView) findViewById(R.id.viewAllWorkoutsListView);
         workoutsListView.setAdapter(new ArrayAdapter<workoutsData.workoutVariables>(
@@ -143,11 +130,8 @@ public class viewWorkoutsListActivity extends AppCompatActivity {
                 }
 
                 workoutsData.workoutVariables currentWorkout = getItem(position);
-                if(global) {
-                    ((ViewHolder) view.getTag()).imageOfListCell.setImageBitmap(database.downloadImage(currentWorkout.getWorkoutImage()));
-                }else{
-                    ((ViewHolder) view.getTag()).imageOfListCell.setImageBitmap(currentWorkout.getWorkoutBitmap());
-                }
+
+                ((ViewHolder) view.getTag()).imageOfListCell.setImageBitmap(currentWorkout.getWorkoutBitmap());
                 ((ViewHolder)view.getTag()).titleOfListCell.setText(currentWorkout.getWorkoutTitle());
                 ((ViewHolder)view.getTag()).levelOfListCell.setText(currentWorkout.getWorkoutLevel());
 
@@ -158,10 +142,10 @@ public class viewWorkoutsListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(viewWorkoutsListActivity.this, workoutDetailView.class);
+                Intent intent = new Intent(viewWorkoutsListActivity.this, viewWorkoutDetailViewActivity.class);
                 intent.putExtra("position",position);
+                intent.putExtra("global",global);
                 startActivity(intent);
-
             }
         });
 
@@ -170,9 +154,9 @@ public class viewWorkoutsListActivity extends AppCompatActivity {
 
     //ListView cell holder
     public class ViewHolder{
-        public ImageView imageOfListCell;
-        public TextView titleOfListCell;
-        public TextView levelOfListCell;
+        private ImageView imageOfListCell;
+        private TextView titleOfListCell;
+        private TextView levelOfListCell;
     }
 
 }

@@ -71,7 +71,6 @@ public class fireBaseApi {
 
     //creates workout
     public void createWorkout(workoutsData.workoutVariables workout, final byte[] data, final createWorkoutActivity createworkoutactivity){
-        System.out.println("create workout initited");
         Map<String, Object> workoutToBeMade = new HashMap<>();
         workoutToBeMade.put("ownerId",workout.getOwnerId());
         workoutToBeMade.put("title",workout.getWorkoutTitle());
@@ -109,20 +108,39 @@ public class fireBaseApi {
     }
 
     //read all data from cloud
-    public void readAllDocuments(){
+    public void readAllDocuments(final viewWorkoutsListActivity activity,final String userId){
         workoutsData.workoutList.clear();
         db.collection("workoutsTable").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        printDataToArray(document,true);
+                    if(userId != null){
+                        for(QueryDocumentSnapshot document : task.getResult()){
+                            if(document.get("ownerId").toString() == userId)
+                                printDataToArray(document);
+                        }
+                    }else {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            printDataToArray(document);
+                        }
                     }
+                    /*try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }*/
+                    activity.loadWorkouts();
                 } else {
-                    Log.w(TAG, "error", task.getException());
+                    System.out.println("error" + task.getException().getMessage());
                 }
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                System.out.println(e.getMessage());
+            }
         });
+
     }
 
     //read specific documents by ownerID
@@ -132,8 +150,9 @@ public class fireBaseApi {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     for(QueryDocumentSnapshot document: task.getResult()){
-                        printDataToArray(document,false);
+                        printDataToArray(document);
                     }
+
                 }else{
                     Log.w(TAG, "error", task.getException());
                 }
@@ -142,8 +161,9 @@ public class fireBaseApi {
 
     }
 
-    //user by other functions to print data to arrayList (used by readData -true-, readOneData -false-)
-    private void printDataToArray(QueryDocumentSnapshot document, boolean allOrNot){
+    //user by other functions to print data to arrayList )
+    private void printDataToArray(QueryDocumentSnapshot document){
+        String postId = document.getId();
         String ownerID = document.get("ownerId").toString();
         String title = document.get("title").toString();
         ArrayList<String> exerciseTitles = (ArrayList<String>) document.get("exerciseTitles");
@@ -151,11 +171,12 @@ public class fireBaseApi {
         String workoutLevel = document.get("workoutLevel").toString();
         String workoutImage = document.getId();
 
-        if(allOrNot) {
-            workoutsData.workoutList.add(new workoutsData.workoutVariables(ownerID, title, exerciseTitles, exerciseDescription, workoutLevel, workoutImage));
-        }else{
-            workoutsData.specoficSearchedWorkoutList.add(new workoutsData.workoutVariables(ownerID, title, exerciseTitles, exerciseDescription, workoutLevel, workoutImage));
-        }
+        workoutsData.workoutVariables workout = new workoutsData.workoutVariables(ownerID,title,exerciseTitles,exerciseDescription,workoutLevel,workoutImage);
+        downloadImage(workoutImage,workout);
+        workout.setPostId(postId);
+
+        workoutsData.workoutList.add(workout);
+
     }
 
 
@@ -183,47 +204,20 @@ public class fireBaseApi {
         });
     }
 
-    private Uri getUrl(UploadTask uploadTask, final StorageReference imageRef){
-        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-            @Override
-            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                if (!task.isSuccessful()) {
-                    throw task.getException();
-                }
-
-                // Continue with the task to get the download URL
-                return imageRef.getDownloadUrl();
-            }
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    Uri downloadUri = task.getResult();
-                } else {
-                    // Handle failures
-                    // ...
-                }
-            }
-        });
-        return null;
-    }
-
-    public Bitmap downloadImage(String imageId){
+    public void downloadImage(String imageId,final workoutsData.workoutVariables workout){
         String path = "images/" + imageId;
         final StorageReference storageReference = storage.getReference();
-        final Bitmap[] bitmap = new Bitmap[1];
         storageReference.child(path).getBytes(1024*1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
-                bitmap[0] = BitmapFactory.decodeByteArray(bytes,0, bytes.length);
+                workout.setWorkoutBitmap(BitmapFactory.decodeByteArray(bytes,0, bytes.length));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-
+                System.out.println("e " + e.getMessage());
             }
         });
-        return bitmap[0];
     }
 
 

@@ -23,7 +23,8 @@ public class LocalDB extends SQLiteOpenHelper {
 
             database =  getWritableDatabase();
 
-         /*   String droptable1 = "DROP TABLE WORKOUT";
+            /*
+            String droptable1 = "DROP TABLE WORKOUT";
             String droptable2 = "DROP TABLE EXERCISES";
             database.execSQL(droptable1);
             database.execSQL(droptable2);
@@ -62,54 +63,76 @@ public class LocalDB extends SQLiteOpenHelper {
 
     public void readData(){
         String query = "SELECT * FROM WORKOUT";
-        Cursor cursorWorkoutTable = database.rawQuery(query,null);
+        Cursor cursorWorkoutTable = null;
 
-        while(cursorWorkoutTable.moveToNext()){
+        try {
+            cursorWorkoutTable = database.rawQuery(query,null);
 
-            String id = cursorWorkoutTable.getString(0);
+            while(cursorWorkoutTable.moveToNext()){
+                String id = cursorWorkoutTable.getString(0);
 
-            ArrayList<String> exerciseTitleArray = null;
-            ArrayList<String> exerciseDescriptionArray = null;
-            try {
-                String exerciseQuery = "SELECT * FROM EXERCISES WHERE ownerID = " + id;
+                ArrayList<String> exerciseTitleArray = new ArrayList<>();
+                ArrayList<String> exerciseDescriptionArray = new ArrayList<>();
+                String exerciseQuery = "SELECT * FROM EXERCISES WHERE ownerID = '" + id + "'" ;
 
-                Cursor cursorExerciseTable = database.rawQuery(exerciseQuery,null);
+                readExercisesRows(exerciseQuery,exerciseTitleArray,exerciseDescriptionArray);
 
-                exerciseTitleArray = new ArrayList<>();
-                exerciseDescriptionArray = new ArrayList<>();
-                //exercises read
-                while(cursorExerciseTable.moveToNext()){
-                    exerciseTitleArray.add(cursorExerciseTable.getString(2));
-                    exerciseDescriptionArray.add(cursorExerciseTable.getString(3));
-                }
-                cursorExerciseTable.close();
-            } catch (Exception e) {
-                //no rows in this
+                String title = null;
+                byte[] image = new byte[0];
+
+                title = cursorWorkoutTable.getString(1);
+                image = cursorWorkoutTable.getBlob(2);
+
+                Bitmap imageBitmap = BitmapFactory.decodeByteArray(image,0, image.length);
+                workoutsData.workoutVariables workout = new workoutsData.workoutVariables(id,title,exerciseTitleArray,exerciseDescriptionArray,"advanced",null);
+                workout.setWorkoutBitmap(imageBitmap);
+
+                workoutsData.workoutList.add(workout);
+
             }
-
-            String title = null;
-            byte[] image = new byte[0];
-
-            title = cursorWorkoutTable.getString(1);
-            image = cursorWorkoutTable.getBlob(2);
-
-
-            Bitmap imageBitmap = BitmapFactory.decodeByteArray(image,0, image.length);
-            workoutsData.workoutVariables workout = new workoutsData.workoutVariables(id,title,exerciseTitleArray,exerciseDescriptionArray,"advanced",null);
-            workout.setWorkoutBitmap(imageBitmap);
-
-            workoutsData.workoutList.add(workout);
-
             cursorWorkoutTable.close();
 
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
 
+    private void readExercisesRows(String query, ArrayList<String> titles,ArrayList<String> desc){
+        Cursor cursorExerciseTable = null;
+        try {
+            cursorExerciseTable = database.rawQuery(query,null);
+            //exercises read
+            while(cursorExerciseTable.moveToNext()){
+                titles.add(cursorExerciseTable.getString(2));
+                desc.add(cursorExerciseTable.getString(3));
+            }
+            cursorExerciseTable.close();
+
+        } catch (Exception e) {
+            //no rows in this
+        }
+    }
+
+    public String readSpecificRow(String id){
+        ArrayList<workoutsData.workoutVariables> workouts = new ArrayList<>();
+        String postID = null;
+        String query = "SELECT * FROM WORKOUT WHERE postID = '" + id + "'";
+        Cursor cursorWorkoutTable = null;
+
+        cursorWorkoutTable = database.rawQuery(query,null);
+        while (cursorWorkoutTable.moveToNext()){
+            postID = cursorWorkoutTable.getString(0);
+        }
+
+        cursorWorkoutTable.close();
+
+        return postID;
+    }
+
 
     public void deleteRow(String id){
-
-
+        System.out.println(id);
         //deletes all exercises from exercises table
         String deleteExercisesRows = "DELETE FROM EXERCISES WHERE ownerID = ?";
         SQLiteStatement deleteExerciseStatement = database.compileStatement(deleteExercisesRows);
@@ -126,7 +149,6 @@ public class LocalDB extends SQLiteOpenHelper {
         deleteWorkoutStatement.close();
 
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {

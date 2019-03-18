@@ -47,23 +47,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        /*try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "se.ju.student.saro1718.workout4everyone",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-                System.out.println(Base64.encodeToString(md.digest(),Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            System.out.println(e.getMessage());
-        } catch (NoSuchAlgorithmException e) {
-            System.out.println(e.getMessage());
-        }*/
-
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -119,49 +102,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 break;
             case R.id.view_favourites:
-                Intent intent1 = new Intent(this,registerUserActivity.class);
+                Intent intent1 = new Intent(this,viewWorkoutsListActivity.class);
+                intent1.putExtra("global",false);
                 startActivity(intent1);
                 break;
             case R.id.view_workouts:
                 Intent intent2 = new Intent(this, viewWorkoutsListActivity.class);
+                intent2.putExtra("global",true);
                 startActivity(intent2);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    //switch fragment
-    /*
-    public void switchFragment(int id){
-
-        Fragment fragment = null;
-
-        switch(id){
-            case R.id.nav_home:
-                fragment = _homeFragment;
-                break;
-            case R.id.nav_profile:
-                fragment = _profileFragment;
-                break;
-            default:
-                fragment = _homeFragment;
-                break;
-        }
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,fragment).commit();
-    }
-    */
-
-    //bottom navigation view listener
-    /*
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            switchFragment(menuItem.getItemId());
-            return true;
-        }
-    };
-    */
-
 
 }

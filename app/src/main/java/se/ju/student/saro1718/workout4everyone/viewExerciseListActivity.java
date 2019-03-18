@@ -86,13 +86,13 @@ public class viewExerciseListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        //Intiating listV
+        //Intiating listView
         initList();
     }
 
     public void initList(){
         ListView listView = (ListView) findViewById(R.id.exerciseListView);
-        listView.setAdapter(new ArrayAdapter<workoutsData.Exercise>(
+        listView.setAdapter(new ArrayAdapter<workoutsData.listViewHelper>(
                 this,
                 android.R.layout.simple_list_item_1,
                 workoutsData.exercises
@@ -112,7 +112,6 @@ public class viewExerciseListActivity extends AppCompatActivity {
     //removes exercise from listView
     private void removeExercise(int position){
         workoutsData.exercises.remove(position);
-        workoutsData.descriptions.remove(position);
     }
 
 }
