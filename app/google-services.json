@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "394721711068",
+    "firebase_url": "https://workout4everyone-e5214.firebaseio.com",
+    "project_id": "workout4everyone-e5214",
+    "storage_bucket": "workout4everyone-e5214.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:394721711068:android:fadc18da8f17c84d",
+        "android_client_info": {
+          "package_name": "se.ju.student.saro1718.workout4everyone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "394721711068-kvd7k614srlnhhi5a3732ia7f0a6vf2a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "se.ju.student.saro1718.workout4everyone",
+            "certificate_hash": "d16f55b5af720a26dccb29fc8272aea1cb6eefe3"
+          }
+        },
+        {
+          "client_id": "394721711068-0ct4ltjlnm8fvjh668lgilem9vpvrf7v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxQawEensuDhaWJCkvxRznAqmVdmUEP7s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "394721711068-0ct4ltjlnm8fvjh668lgilem9vpvrf7v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

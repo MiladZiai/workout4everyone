@@ -1,8 +1,44 @@
 <resources>
+    <!-- facebook,twitter consumer key and secret -->
+    <string name="twitter_consumer_key" translatable="false">YOUR_CONSUMER_KEY</string>
+    <string name="twitter_consumer_secret" translatable="false">YOUR_CONSUMER_SECRET</string>
+    <string name="facebook_app_id" translatable="false">593299544466815</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb593299544466815</string>
+
     <string name="app_name">workout4everyone</string>
-    <string name="view_all_workouts">View all workouts</string>
+    <string name="view_all_workouts">view all workouts</string>
     <string name="create_workout">create workout</string>
     <string name="view_favorite_workouts">View favorite</string>
     <string name="Home">Home</string>
     <string name="Profile">Profile</string>
+    <string name="Title">Title</string>
+    <string name="Exercise">Exercise</string>
+    <string name="Description">Description</string>
+    <string name="addExercise">Add Exercise</string>
+    <string name="viewEx">View Exercise</string>
+    <string name="save">Save</string>
+    <string name="Username">username</string>
+    <string name="Password">password</string>
+    <string name="SignIn">Sign in</string>
+    <string name="easy">easy</string>
+    <string name="medium">medium</string>
+    <string name="hard">hard</string>
+
+    <!-- Login -->
+    <string name="RemoveEx">remove exercise</string>
+    <string name="workoutImage">picture</string>
+    <string name="register">register</string>
+    <string name="email">E-mail</string>
+    <string name="policyCouldntLoad">Policy couldn\'t load, please try again!</string>
+    <string name="terms_and_conditions">Terms and conditions</string>
+    <string name="workoutTitle">workout title</string>
+    <string name="exerciseTitle">exercise title</string>
+    <string name="exerciseDesc">exercise description</string>
+    <string name="viewWorkouts">View Workouts</string>
+    <string name="CreateWorkout">Create Workout</string>
+    <string name="ViewFavourites">View Favourites</string>
+    <string name="navdraweropen">navigation drawer open</string>
+    <string name="navdrawerclose">navigation drawer close</string>
 </resources>
+
+
