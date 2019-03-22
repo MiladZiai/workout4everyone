@@ -2,6 +2,7 @@ package se.ju.student.saro1718.workout4everyone;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -46,7 +47,8 @@ public class createWorkoutActivity extends AppCompatActivity implements EasyPerm
     private ProgressBar saveProgressBar;
     private Button saveWorkoutButton;
     private int difficultyCounter = 0;
-
+    private Context context;
+    private createWorkoutActivity activity;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,7 @@ public class createWorkoutActivity extends AppCompatActivity implements EasyPerm
 
         imageView = (ImageView) findViewById(R.id.imageView);
 
+        workoutsData.exercises.clear();
         //image view on create
         imageViewClickListener();
     }
@@ -195,8 +198,7 @@ public class createWorkoutActivity extends AppCompatActivity implements EasyPerm
                         }
                     }).show();
         }else{
-            workoutsData.exercises.add(new workoutsData.Exercise(exerciseTitleInput));
-            workoutsData.descriptions.add(new workoutsData.Desc(exerciseDescInput));
+            workoutsData.exercises.add(new workoutsData.listViewHelper(exerciseTitleInput,exerciseDescInput));
             exerciseTitleEditText.setText("");
             exerciseDescEditText.setText("");
         }
@@ -233,10 +235,13 @@ public class createWorkoutActivity extends AppCompatActivity implements EasyPerm
         EditText titleInput = (EditText) findViewById(R.id.titleInput);
 
         String title = titleInput.getText().toString();
+
         if(title.length() == 0 || imageUri == null){
             Toast.makeText(this,getText(R.string.please_make_sure_that_you_have_a_title_and_image),Toast.LENGTH_LONG).show();
             return;
         }
+
+        imageView.invalidate();
 
         byte[] data = imageViewToByte(imageView);
 
@@ -246,22 +251,16 @@ public class createWorkoutActivity extends AppCompatActivity implements EasyPerm
         ArrayList<String> exerciseDescriptions = new ArrayList<>();
 
         for(int i = 0 ; i < workoutsData.exercises.size();i++){
-            exerciseTitles.add(workoutsData.exercises.get(i).toString());
-            exerciseDescriptions.add(workoutsData.descriptions.get(i).toString());
+            exerciseTitles.add(workoutsData.exercises.get(i).getTitle());
+            exerciseDescriptions.add(workoutsData.exercises.get(i).getDesc());
         }
 
         Button difficultyButton = (Button) findViewById(R.id.create_workout_activity_difficultyButton);
         String level = difficultyButton.getText().toString();
+        workoutsData.workoutVariables workoutToBeCreated = new workoutsData.workoutVariables(database.getFirebaseAuth().getCurrentUser().toString(),title,exerciseTitles,exerciseDescriptions,level, "");
 
-        imageView.invalidate();
-
-        workoutsData.workoutVariables workoutToBeCreated = new workoutsData.workoutVariables("test",title,exerciseTitles,exerciseDescriptions,level, "");
-        
         //send all information to database
-        //database.createWorkout(workoutToBeCreated,data,this);
-
-        //database.createWorkout(workoutToBeCreated,bitmap,this);
-        localDatabase.insertData(workoutToBeCreated.getWorkoutTitle(),data,exerciseTitles,exerciseDescriptions,"hej5");
+        database.createWorkout(workoutToBeCreated,data, this);
 
     }
 
@@ -270,6 +269,7 @@ public class createWorkoutActivity extends AppCompatActivity implements EasyPerm
         if(success){
             //toast ok
             Intent intent = new Intent(createWorkoutActivity.this,viewWorkoutsListActivity.class);
+            intent.putExtra("global",true);
             finish();
             //intent putExtra
             startActivity(intent);
@@ -297,8 +297,8 @@ public class createWorkoutActivity extends AppCompatActivity implements EasyPerm
         Bitmap savedImage = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         savedImage.compress(Bitmap.CompressFormat.JPEG, 10, baos);
-        byte[] byteArr = baos.toByteArray();
-        return byteArr;
+        return baos.toByteArray();
+
     }
 
 

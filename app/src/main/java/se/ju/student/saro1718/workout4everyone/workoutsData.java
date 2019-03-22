@@ -10,6 +10,7 @@ public class workoutsData{
 
 
     public static class workoutVariables{
+        private String postId;
         private String ownerId;
         private String workoutTitle;
         private ArrayList<String> workoutExerciseTitle;
@@ -19,6 +20,9 @@ public class workoutsData{
         private Bitmap workoutBitmap;
 
         /////////       returns       /////////
+
+        //returns postId of workout from firebase
+        public String getPostId(){return this.postId;}
 
         //returns id of workout
         public String getOwnerId(){
@@ -55,6 +59,9 @@ public class workoutsData{
 
         /////////       sets        /////////
 
+        //set postId to inserted id in parameters
+        public void setPostId(String id){this.postId = id;}
+
         //sets owner id to inserted id in parameters
         public void setOwnerId(String id) {
             this.ownerId = id;
@@ -77,7 +84,7 @@ public class workoutsData{
 
         //sets workoutLevel to inserted level in parameters (describes the level of this workout)
         public void setWorkoutLevel(String level){
-            this.workoutLevel = workoutLevel;
+            this.workoutLevel = level;
         }
 
         //sets workoutImage to inserted imageUrl in parameters (used by global database since we store the image as the post id)
@@ -102,36 +109,28 @@ public class workoutsData{
 
 
     ////////////////////////////////////////////////////////////////////
-    //                      used by create workout                    //
+    //                      used for listviews                        //
     ////////////////////////////////////////////////////////////////////
 
-    public static ArrayList<Exercise> exercises = new ArrayList<>();
-    public static ArrayList<Desc> descriptions = new ArrayList<>();
+    public static ArrayList<listViewHelper> exercises = new ArrayList<>();
 
-
-    public static class Exercise{
+    public static class listViewHelper{
         public String title;
-
-        public Exercise(String title){
-            this.title = title;
-        }
-
-        public String toString(){
-            return title;
-        }
-    }
-
-    public static class Desc{
         public String desc;
 
-        public Desc(String description){
-            this.desc = description;
+        public String toString(){
+            return this.title;
         }
 
-        public String toString(){
-            return desc;
+        public String getTitle(){return this.title;}
+        public String getDesc(){return this.desc;}
+
+        public listViewHelper(String title,String desc){
+            this.title = title;
+            this.desc = desc;
         }
     }
+
 
 
 

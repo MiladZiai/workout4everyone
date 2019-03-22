@@ -29,7 +29,7 @@ import static se.ju.student.saro1718.workout4everyone.MainActivity.localDatabase
 public class viewWorkoutsListActivity extends AppCompatActivity {
 
     ArrayList<workoutsData.workoutVariables> list;
-
+    private boolean global;
     SwipeMenuListView listView;
 
     @Override
@@ -39,13 +39,20 @@ public class viewWorkoutsListActivity extends AppCompatActivity {
 
         listView = (SwipeMenuListView) findViewById(R.id.viewAllWorkoutsListView);
 
-        swipeMenuCreator();
 
         workoutsData.workoutList.clear();
 
-        localDatabase.readData();
-        System.out.println(workoutsData.workoutList);
-        loadWorkouts(false);
+        global = false;
+        global = getIntent().getBooleanExtra("global",global);
+
+        if(global) {
+            database.readAllDocuments(this,null);
+        }else {
+            localDatabase.readData();
+            swipeMenuCreator();
+        }
+
+        loadWorkouts();
     }
 
 
@@ -99,7 +106,7 @@ public class viewWorkoutsListActivity extends AppCompatActivity {
 
 
     // load all workouts with custom listview
-    private void loadWorkouts(final boolean global){
+    public void loadWorkouts(){
 
         ListView workoutsListView = (ListView) findViewById(R.id.viewAllWorkoutsListView);
         workoutsListView.setAdapter(new ArrayAdapter<workoutsData.workoutVariables>(
@@ -120,11 +127,8 @@ public class viewWorkoutsListActivity extends AppCompatActivity {
                 }
 
                 workoutsData.workoutVariables currentWorkout = getItem(position);
-                if(global) {
-                    ((ViewHolder) view.getTag()).imageOfListCell.setImageBitmap(database.downloadImage(currentWorkout.getWorkoutImage()));
-                }else{
-                    ((ViewHolder) view.getTag()).imageOfListCell.setImageBitmap(currentWorkout.getWorkoutBitmap());
-                }
+
+                ((ViewHolder) view.getTag()).imageOfListCell.setImageBitmap(currentWorkout.getWorkoutBitmap());
                 ((ViewHolder)view.getTag()).titleOfListCell.setText(currentWorkout.getWorkoutTitle());
                 ((ViewHolder)view.getTag()).levelOfListCell.setText(currentWorkout.getWorkoutLevel());
 
@@ -135,10 +139,10 @@ public class viewWorkoutsListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(viewWorkoutsListActivity.this, workoutDetailView.class);
+                Intent intent = new Intent(viewWorkoutsListActivity.this, viewWorkoutDetailViewActivity.class);
                 intent.putExtra("position",position);
+                intent.putExtra("global",global);
                 startActivity(intent);
-
             }
         });
 
@@ -147,9 +151,9 @@ public class viewWorkoutsListActivity extends AppCompatActivity {
 
     //ListView cell holder
     public class ViewHolder{
-        public ImageView imageOfListCell;
-        public TextView titleOfListCell;
-        public TextView levelOfListCell;
+        private ImageView imageOfListCell;
+        private TextView titleOfListCell;
+        private TextView levelOfListCell;
     }
 
 }

@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="se.ju.student.saro1718.workout4everyone.MainActivity"
+            android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,16 +27,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="se.ju.student.saro1718.workout4everyone.viewWorkoutsListActivity" />
-        <activity android:name="se.ju.student.saro1718.workout4everyone.createWorkoutActivity" />
-        <activity android:name="se.ju.student.saro1718.workout4everyone.viewExerciseListActivity" />
+        <activity android:name=".viewWorkoutsListActivity" />
+        <activity android:name=".createWorkoutActivity" />
+        <activity android:name=".viewExerciseListActivity" />
         <activity
-            android:name="se.ju.student.saro1718.workout4everyone.exercisePopUp"
+            android:name=".exercisePopUp"
             android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name="se.ju.student.saro1718.workout4everyone.registerUserActivity" />
-        <activity android:name="se.ju.student.saro1718.workout4everyone.policyActivity" />
-        <activity android:name="se.ju.student.saro1718.workout4everyone.workoutDetailView" />
-
+        <activity android:name=".registerUserActivity" />
+        <activity android:name=".policyActivity" />
+        <activity
+            android:name=".viewWorkoutDetailViewActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <!-- facebook manifest -->
         <meta-data
@@ -60,6 +61,7 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

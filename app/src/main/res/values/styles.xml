@@ -24,15 +24,5 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="customButtomStyle">
-        <item name="android:textColor">#FFFFFF</item>
-        <item name="android:background">@drawable/btnshape</item>
-        <item name="android:shadowColor">#A8A8A8</item>
-        <item name="android:shadowDx">0</item>
-        <item name="android:shadowDy">0</item>
-        <item name="android:shadowRadius">5</item>
-        <item name="android:layout_margin">@dimen/fab_margin</item>
-    </style>
-
 
 </resources>
