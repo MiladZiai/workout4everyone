@@ -1,16 +1,11 @@
 package se.ju.student.saro1718.workout4everyone;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +21,6 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import static se.ju.student.saro1718.workout4everyone.MainActivity.database;
@@ -94,7 +88,7 @@ public class viewWorkoutsListActivity extends AppCompatActivity {
                         // delete
                         localDatabase.deleteRow(workoutsData.workoutList.get(position).getOwnerId());
 
-                        Toast.makeText(getApplicationContext(),"Successfully deleted", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),getText(R.string.Workout_deleted), Toast.LENGTH_SHORT).show();
 
                         Intent intent = getIntent();
                         finish();
@@ -107,6 +101,9 @@ public class viewWorkoutsListActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 
     // load all workouts with custom listview
     public void loadWorkouts(){

@@ -17,8 +17,6 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 
-import static se.ju.student.saro1718.workout4everyone.MainActivity.localDatabase;
-
 public class viewExerciseListActivity extends AppCompatActivity {
 
 
@@ -69,7 +67,7 @@ public class viewExerciseListActivity extends AppCompatActivity {
                         // delete
                         removeExercise(position);
 
-                        Toast.makeText(getApplicationContext(),"Successfully deleted", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),getText(R.string.Exersice_deleted), Toast.LENGTH_SHORT).show();
 
                         Intent intent = getIntent();
                         finish();
@@ -82,6 +80,8 @@ public class viewExerciseListActivity extends AppCompatActivity {
         });
     }
 
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -89,6 +89,8 @@ public class viewExerciseListActivity extends AppCompatActivity {
         //Intiating listView
         initList();
     }
+
+
 
     public void initList(){
         ListView listView = (ListView) findViewById(R.id.exerciseListView);
