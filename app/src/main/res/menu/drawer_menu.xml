@@ -21,6 +21,7 @@
                 android:title="@string/viewWorkouts"/>
             <item android:id="@+id/create_workouts"
                 android:icon="@drawable/ic_create"
+                android:enabled="false"
                 android:title="@string/CreateWorkout"/>
             <item android:id="@+id/view_favourites"
                 android:icon="@drawable/ic_star_black_24dp"

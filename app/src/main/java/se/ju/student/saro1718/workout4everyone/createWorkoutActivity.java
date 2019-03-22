@@ -18,7 +18,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,7 +33,6 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
-import static se.ju.student.saro1718.workout4everyone.MainActivity.database;
 import static se.ju.student.saro1718.workout4everyone.MainActivity.localDatabase;
 
 public class createWorkoutActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
@@ -82,7 +80,7 @@ public class createWorkoutActivity extends AppCompatActivity implements EasyPerm
             String uri = imageUri.toString();
 
             outState.putByteArray("image", data);
-            outState.putString("imageUri",uri);
+            outState.putString("imageUri", uri);
         }
     }
 
@@ -117,10 +115,10 @@ public class createWorkoutActivity extends AppCompatActivity implements EasyPerm
 
     private void showPictureDialog(){
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
-        pictureDialog.setTitle("Select Action");
+        pictureDialog.setTitle(getString(R.string.selectAction));
         String[] pictureDialogItems = {
-                "select photo from gallery",
-                "capture photo from camera"};
+                getString(R.string.select_photo_from_gallery),
+                getString(R.string.capture_photo_from_camera)};
         pictureDialog.setItems(pictureDialogItems, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -146,7 +144,7 @@ public class createWorkoutActivity extends AppCompatActivity implements EasyPerm
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(intent, REQUEST_CAPTURE);
         } else{
-            EasyPermissions.requestPermissions(this, "Allow MyWorkoutPal to access the camera", 123, perms);
+            EasyPermissions.requestPermissions(this, getString(R.string.access_the_camera), 123, perms);
         }
 
     }
@@ -193,7 +191,7 @@ public class createWorkoutActivity extends AppCompatActivity implements EasyPerm
         String exerciseTitleInput = exerciseTitleEditText.getText().toString();
         String exerciseDescInput = exerciseDescEditText.getText().toString();
         if(exerciseTitleInput.length() == 0 || exerciseDescInput.length() == 0){
-            new AlertDialog.Builder(this).setTitle("Add Exercise").setMessage("Input both Exercise and Description!")
+            new AlertDialog.Builder(this).setTitle(getString(R.string.Add_Exercise)).setMessage(getString(R.string.Input_both_Exercise_and_Description))
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
                         public void onClick(DialogInterface dialog, int whichButton){
                             dialog.dismiss();
@@ -218,7 +216,7 @@ public class createWorkoutActivity extends AppCompatActivity implements EasyPerm
     */
     public void swapDifficultyButtonClicked(View view){
         final String[] difficultyString = {getString(R.string.easy),getString(R.string.medium),getString(R.string.hard)};
-        final int[] difficultyColor = {ContextCompat.getColor(this,R.color.green),ContextCompat.getColor(this,R.color.blue),ContextCompat.getColor(this,R.color.red)};
+        final int[] difficultyColor = {ContextCompat.getColor(this,R.color.green),ContextCompat.getColor(this,R.color.myBlue),ContextCompat.getColor(this,R.color.red)};
         Button difficultyButton = (Button) view.findViewById(R.id.create_workout_activity_difficultyButton);
 
         difficultyCounter++;
@@ -239,7 +237,7 @@ public class createWorkoutActivity extends AppCompatActivity implements EasyPerm
         String title = titleInput.getText().toString();
 
         if(title.length() == 0 || imageUri == null){
-            Toast.makeText(this,"please make sure that you have a title and image!",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,getText(R.string.please_make_sure_that_you_have_a_title_and_image),Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -273,7 +271,7 @@ public class createWorkoutActivity extends AppCompatActivity implements EasyPerm
             Intent intent = new Intent(createWorkoutActivity.this,viewWorkoutsListActivity.class);
             intent.putExtra("global",true);
             finish();
-            //intent putextra
+            //intent putExtra
             startActivity(intent);
         }else{
             //toast not ok e.getMessage();
